@@ -34,13 +34,15 @@ loadEnvFile();
 
 const PORT = Number(process.env.PORT) || 4000;
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'change-me';
-const SMTP_HOST = process.env.SMTP_HOST || '';
-const SMTP_PORT = Number(process.env.SMTP_PORT) || 587;
-const SMTP_SECURE = String(process.env.SMTP_SECURE || 'false').toLowerCase() === 'true';
-const SMTP_USER = process.env.SMTP_USER || '';
-const SMTP_PASS = process.env.SMTP_PASS || '';
-const CONTACT_TO_EMAIL = process.env.CONTACT_TO_EMAIL || '';
-const CONTACT_FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || '';
+const SMTP_HOST = (process.env.SMTP_HOST || '').trim();
+const SMTP_PORT = Number((process.env.SMTP_PORT || '').trim()) || 587;
+const SMTP_SECURE_RAW = (process.env.SMTP_SECURE || '').trim().toLowerCase();
+const SMTP_SECURE =
+  SMTP_SECURE_RAW === 'true' ? true : SMTP_SECURE_RAW === 'false' ? false : SMTP_PORT === 465;
+const SMTP_USER = (process.env.SMTP_USER || '').trim();
+const SMTP_PASS = (process.env.SMTP_PASS || '').trim();
+const CONTACT_TO_EMAIL = (process.env.CONTACT_TO_EMAIL || '').trim();
+const CONTACT_FROM_EMAIL = (process.env.CONTACT_FROM_EMAIL || '').trim();
 const DB_PATH = path.join(__dirname, '..', 'data', 'db.json');
 const BACKEND_ROOT = path.join(__dirname, '..');
 const ASSETS_ROOT = path.join(BACKEND_ROOT, 'assets');
@@ -156,6 +158,9 @@ async function sendContactEmail(payload) {
     host: SMTP_HOST,
     port: SMTP_PORT,
     secure: SMTP_SECURE,
+    connectionTimeout: Number((process.env.SMTP_CONNECTION_TIMEOUT || '').trim()) || 20000,
+    greetingTimeout: Number((process.env.SMTP_GREETING_TIMEOUT || '').trim()) || 10000,
+    socketTimeout: Number((process.env.SMTP_SOCKET_TIMEOUT || '').trim()) || 20000,
     auth: {
       user: SMTP_USER,
       pass: SMTP_PASS,
@@ -458,6 +463,7 @@ const server = http.createServer(async (req, res) => {
       await sendContactEmail(payload);
       return sendJson(res, 200, { ok: true, message: 'Message sent successfully.' });
     } catch (err) {
+      console.error('Contact email error:', err);
       const message = err && err.message ? err.message : 'Unable to send email.';
       return sendJson(res, 500, { error: message });
     }
