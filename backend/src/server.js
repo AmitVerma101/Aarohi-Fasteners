@@ -32,7 +32,7 @@ function loadEnvFile() {
 
 loadEnvFile();
 
-const PORT = Number(process.env.API_PORT) || 4000;
+const PORT = Number(process.env.PORT) || 4000;
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'change-me';
 const SMTP_HOST = process.env.SMTP_HOST || '';
 const SMTP_PORT = Number(process.env.SMTP_PORT) || 587;
