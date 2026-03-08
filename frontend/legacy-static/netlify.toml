@@ -1,0 +1,30 @@
+# Netlify configuration
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+
+# Pretty URLs — Netlify serves folder/index.html for /folder automatically
+[[redirects]]
+  from = "/about.html"
+  to = "/about/"
+  status = 301
+
+[[redirects]]
+  from = "/products.html"
+  to = "/products/"
+  status = 301
+
+[[redirects]]
+  from = "/catalogue.html"
+  to = "/catalogue/"
+  status = 301
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact/"
+  status = 301

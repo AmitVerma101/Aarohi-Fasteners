@@ -1,0 +1,7 @@
+# Netlify clean URL redirects
+# These are actually not needed with the folder structure,
+# but included as fallback for any old .html links
+/about.html     /about/     301
+/products.html  /products/  301
+/catalogue.html /catalogue/ 301
+/contact.html   /contact/   301

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="base-path" content="">
+  <title>FORM — Products</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<div class="page-content">
+  <section style="background: var(--white);">
+    <div class="products-header fade-in">
+      <div>
+        <p class="section-tag">Featured</p>
+        <h2 class="section-title">Hand-picked for you</h2>
+      </div>
+      <a href="/catalogue/" class="see-all">See all →</a>
+    </div>
+    <div class="product-grid" id="featured-grid"></div>
+  </section>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="/js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.getElementById('featured-grid');
+    products.filter(p => p.featured).forEach(p => {
+      grid.innerHTML += productCardHTML(p);
+    });
+    // re-run fade-in for dynamically added cards
+    initFadeIn();
+  });
+</script>
+</body>
+</html>

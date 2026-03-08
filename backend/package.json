@@ -1,0 +1,15 @@
+{
+  "name": "hbs-fasteners-backend",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon --watch src --ext js --ignore data/db.json src/server.js"
+  },
+  "dependencies": {
+    "nodemailer": "^6.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

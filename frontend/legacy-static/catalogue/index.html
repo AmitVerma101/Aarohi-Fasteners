@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="base-path" content="">
+  <title>FORM — Catalogue</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<div class="page-content">
+  <section>
+    <p class="section-tag fade-in">Full Catalogue</p>
+    <h2 class="section-title fade-in">Everything we make</h2>
+    <div class="catalogue-filters fade-in" id="filters"></div>
+    <div class="catalogue-grid" id="catalogue-grid"></div>
+  </section>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="/js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const categories = ['All', ...new Set(products.map(p => p.category))];
+
+    // Filters
+    const filtersEl = document.getElementById('filters');
+    categories.forEach((cat, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn' + (i === 0 ? ' active' : '');
+      btn.textContent = cat;
+      btn.dataset.cat = cat;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.catalogue-item').forEach(item => {
+          item.classList.toggle('hidden', cat !== 'All' && item.dataset.cat !== cat);
+        });
+      });
+      filtersEl.appendChild(btn);
+    });
+
+    // Items
+    const grid = document.getElementById('catalogue-grid');
+    products.forEach(p => grid.appendChild(catalogueItemHTML(p)));
+
+    initFadeIn();
+  });
+</script>
+</body>
+</html>

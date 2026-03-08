@@ -1,0 +1,164 @@
+{
+  "categories": [
+    {
+      "name": "Bolts",
+      "isRecommended": true,
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"6\"/><rect x=\"8\" y=\"6\" width=\"8\" height=\"14\" rx=\"1\"/><line x1=\"10\" y1=\"9\" x2=\"14\" y2=\"9\"/><line x1=\"10\" y1=\"12\" x2=\"14\" y2=\"12\"/><line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"22\"/></svg>"
+    },
+    {
+      "name": "Special Part",
+      "isRecommended": false,
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3l7 4v10l-7 4-7-4V7z\"/><path d=\"M12 9v6\"/></svg>"
+    },
+    {
+      "name": "Nuts",
+      "isRecommended": true,
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><polygon points=\"12,3 21,8 21,16 12,21 3,16 3,8\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg>"
+    },
+    {
+      "name": "Turning Component",
+      "isRecommended": false,
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"4\" y=\"7\" width=\"16\" height=\"10\" rx=\"2\"/><circle cx=\"8\" cy=\"12\" r=\"1.5\"/><circle cx=\"12\" cy=\"12\" r=\"1.5\"/><circle cx=\"16\" cy=\"12\" r=\"1.5\"/></svg>"
+    },
+    {
+      "name": "Dowel Pin",
+      "isRecommended": true,
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"22\"/><circle cx=\"12\" cy=\"8\" r=\"3\"/><line x1=\"9\" y1=\"14\" x2=\"15\" y2=\"14\"/></svg>"
+    },
+    {
+      "name": "Grub Screw",
+      "isRecommended": true,
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"1.5\"/><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"7\"/><line x1=\"12\" y1=\"17\" x2=\"12\" y2=\"22\"/></svg>"
+    },
+    {
+      "name": "Machine Screw",
+      "isRecommended": true,
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"22\"/><path d=\"M8 4 Q5 8 5 12 Q5 16 8 20\"/><path d=\"M16 4 Q19 8 19 12 Q19 16 16 20\"/></svg>"
+    },
+    {
+      "name": "Security Screw",
+      "isRecommended": false,
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3l7 4v5c0 4-2.5 6.5-7 9-4.5-2.5-7-5-7-9V7z\"/><circle cx=\"12\" cy=\"11\" r=\"2\"/></svg>"
+    },
+    {
+      "name": "Sems Screw",
+      "isRecommended": false,
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><line x1=\"12\" y1=\"3\" x2=\"12\" y2=\"17\"/><circle cx=\"12\" cy=\"19\" r=\"3\"/><circle cx=\"12\" cy=\"8\" r=\"2\"/></svg>"
+    },
+    {
+      "name": "Washers",
+      "isRecommended": false,
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg>"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Hex Bolts",
+      "category": "Bolts",
+      "imageSrc": "/assets/products/washers/spacer.jpg",
+      "isBestChoice": true,
+      "description": "Hex Bolts is a dependable bolts solution designed for daily industrial use, with consistent performance and reliable fitment.",
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"6\"/><rect x=\"8\" y=\"6\" width=\"8\" height=\"14\" rx=\"1\"/><line x1=\"10\" y1=\"9\" x2=\"14\" y2=\"9\"/><line x1=\"10\" y1=\"12\" x2=\"14\" y2=\"12\"/><line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"22\"/></svg>"
+    },
+    {
+      "id": 2,
+      "name": "Coach Bolt",
+      "category": "Bolts",
+      "imageSrc": "/assets/products/washers/spacer.jpg",
+      "isBestChoice": true,
+      "description": "Coach Bolts is a dependable bolts solution designed for daily industrial use, with consistent performance and reliable fitment.",
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"6\"/><rect x=\"8\" y=\"6\" width=\"8\" height=\"14\" rx=\"1\"/><line x1=\"10\" y1=\"9\" x2=\"14\" y2=\"9\"/><line x1=\"10\" y1=\"12\" x2=\"14\" y2=\"12\"/><line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"22\"/></svg>"
+    },
+    {
+      "id": 3,
+      "name": "Dowel Pins",
+      "category": "Dowel Pin",
+      "imageSrc": "/assets/products/washers/cross-drill-nut.jpg",
+      "isBestChoice": true,
+      "description": "Dowel Pins is a dependable dowel pin solution designed for daily industrial use, with consistent performance and reliable fitment.",
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"22\"/><circle cx=\"12\" cy=\"8\" r=\"3\"/><line x1=\"9\" y1=\"14\" x2=\"15\" y2=\"14\"/></svg>"
+    },
+    {
+      "id": 4,
+      "name": "Socket Grub Screw",
+      "category": "Grub Screw",
+      "imageSrc": "/assets/products/washers/whatsapp-image-2026-02-28-at-4-38-54-pm.jpg",
+      "isBestChoice": true,
+      "description": "Socket Grub Screw is a dependable grub screw solution designed for daily industrial use, with consistent performance and reliable fitment.",
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"1.5\"/><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"7\"/><line x1=\"12\" y1=\"17\" x2=\"12\" y2=\"22\"/></svg>"
+    },
+    {
+      "id": 5,
+      "name": "Pan Head Screws",
+      "category": "Machine Screw",
+      "imageSrc": "/assets/products/machine-screw/screenshot-from-2026-02-05-17-09-08.png",
+      "isBestChoice": false,
+      "description": "Pan Head Screws is a dependable machine screw solution designed for daily industrial use, with consistent performance and reliable fitment.",
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"22\"/><path d=\"M8 4 Q5 8 5 12 Q5 16 8 20\"/><path d=\"M16 4 Q19 8 19 12 Q19 16 16 20\"/></svg>"
+    },
+    {
+      "id": 6,
+      "name": "Countersunk Screws",
+      "category": "Machine Screw",
+      "imageSrc": "/assets/products/machine-screw/screenshot-from-2026-02-05-17-09-08.png",
+      "isBestChoice": false,
+      "description": "Countersunk Screws is a dependable machine screw solution designed for daily industrial use, with consistent performance and reliable fitment.",
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"22\"/><path d=\"M8 4 Q5 8 5 12 Q5 16 8 20\"/><path d=\"M16 4 Q19 8 19 12 Q19 16 16 20\"/></svg>"
+    },
+    {
+      "id": 7,
+      "name": "Hex Nuts",
+      "category": "Nuts",
+      "imageSrc": "/assets/products/nuts/front-image.webp",
+      "isBestChoice": false,
+      "description": "Hex Nuts is a dependable nuts solution designed for daily industrial use, with consistent performance and reliable fitment.",
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><polygon points=\"12,3 21,8 21,16 12,21 3,16 3,8\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg>"
+    },
+    {
+      "id": 8,
+      "name": "Nyloc Nuts",
+      "category": "Nuts",
+      "imageSrc": "/assets/products/nuts/front-image.webp",
+      "isBestChoice": false,
+      "description": "Nyloc Nuts is a dependable nuts solution designed for daily industrial use, with consistent performance and reliable fitment.",
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><polygon points=\"12,3 21,8 21,16 12,21 3,16 3,8\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg>"
+    },
+    {
+      "id": 9,
+      "name": "Wing Nuts",
+      "category": "Nuts",
+      "imageSrc": "/assets/products/nuts/front-image.webp",
+      "isBestChoice": false,
+      "description": "Wing Nuts is a dependable nuts solution designed for daily industrial use, with consistent performance and reliable fitment.",
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><polygon points=\"12,3 21,8 21,16 12,21 3,16 3,8\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg>"
+    },
+    {
+      "id": 11,
+      "name": "Cup Point Grub",
+      "category": "Grub Screw",
+      "imageSrc": "/assets/products/washers/whatsapp-image-2026-02-28-at-4-38-54-pm.jpg",
+      "isBestChoice": true,
+      "description": "Cup Point Grub is a dependable grub screw solution designed for daily industrial use, with consistent performance and reliable fitment.",
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"1.5\"/><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"7\"/><line x1=\"12\" y1=\"17\" x2=\"12\" y2=\"22\"/></svg>"
+    },
+    {
+      "id": 12,
+      "name": "Taper Dowel Pins",
+      "category": "Dowel Pin",
+      "imageSrc": "/assets/products/washers/cross-drill-nut.jpg",
+      "isBestChoice": false,
+      "description": "Taper Dowel Pins is a dependable dowel pin solution designed for daily industrial use, with consistent performance and reliable fitment.",
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"22\"/><circle cx=\"12\" cy=\"8\" r=\"3\"/><line x1=\"9\" y1=\"14\" x2=\"15\" y2=\"14\"/></svg>"
+    },
+    {
+      "id": 13,
+      "name": "Washers",
+      "category": "Washers",
+      "imageSrc": "/assets/products/washers/spacer.jpg",
+      "isBestChoice": false,
+      "description": "Washers is a dependable washers solution designed for daily industrial use, with consistent performance and reliable fitment.",
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg>"
+    }
+  ]
+}

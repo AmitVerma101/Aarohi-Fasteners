@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="base-path" content="">
+  <title>FORM — Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<div class="page-content">
+  <section style="background: var(--white);">
+    <div class="contact-wrap">
+      <div class="fade-in">
+        <p class="section-tag">Get in touch</p>
+        <h2 class="section-title">We'd love to<br>hear from you.</h2>
+        <p class="contact-info-text" style="font-size:.9rem;color:var(--warm-gray);line-height:1.8;margin-bottom:2rem;">
+          Have a question about a product, bulk orders, or just want to say hello? We read every message and reply within 24 hours.
+        </p>
+        <div class="contact-detail">
+          <div class="contact-detail-item">📍 <span>123 Studio Lane, New York, NY 10001</span></div>
+          <div class="contact-detail-item">✉️ <span>hello@formproducts.com</span></div>
+          <div class="contact-detail-item">📞 <span>+1 (555) 234-5678</span></div>
+        </div>
+      </div>
+      <div class="fade-in">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="Alex"/>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Morgan"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@example.com"/>
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select>
+              <option>Product Inquiry</option>
+              <option>Bulk / Wholesale Order</option>
+              <option>Returns &amp; Exchanges</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea rows="4" placeholder="Tell us how we can help…"></textarea>
+          </div>
+          <button class="btn-submit" onclick="submitForm()">Send Message</button>
+          <div class="form-success" id="form-success">✓ Message sent! We'll be in touch within 24 hours.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="/js/main.js"></script>
+<script>
+  function submitForm() {
+    const s = document.getElementById('form-success');
+    s.style.display = 'block';
+    setTimeout(() => s.style.display = 'none', 4000);
+  }
+</script>
+</body>
+</html>
