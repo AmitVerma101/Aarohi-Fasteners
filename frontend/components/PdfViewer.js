@@ -16,13 +16,15 @@ export default function PdfViewer({ url }) {
   const containerRef = useRef(null);
   const renderTask   = useRef(null);
 
-  const [pdf,        setPdf]        = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [numPages,   setNumPages]   = useState(0);
-  const [loading,    setLoading]    = useState(true);
-  const [rendering,  setRendering]  = useState(false);
-  const [error,      setError]      = useState(null);
-  const [shareMsg,   setShareMsg]   = useState('');
+  const [pdf,          setPdf]          = useState(null);
+  const [pageNumber,   setPageNumber]   = useState(1);
+  const [numPages,     setNumPages]     = useState(0);
+  const [loading,      setLoading]      = useState(true);
+  const [rendering,    setRendering]    = useState(false);
+  const [error,        setError]        = useState(null);
+  const [shareMsg,     setShareMsg]     = useState('');
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [renderKey,    setRenderKey]    = useState(0);
 
   /* ── Load document ── */
   useEffect(() => {
@@ -50,6 +52,17 @@ export default function PdfViewer({ url }) {
     return () => { cancelled = true; };
   }, [url]);
 
+  /* ── Fullscreen change listener ── */
+  useEffect(() => {
+    const onChange = () => {
+      const fs = !!document.fullscreenElement;
+      setIsFullscreen(fs);
+      setRenderKey(k => k + 1);
+    };
+    document.addEventListener('fullscreenchange', onChange);
+    return () => document.removeEventListener('fullscreenchange', onChange);
+  }, []);
+
   /* ── Render current page ── */
   useEffect(() => {
     if (!pdf || !canvasRef.current) return;
@@ -64,24 +77,22 @@ export default function PdfViewer({ url }) {
       }
 
       try {
-        const page      = await pdf.getPage(pageNumber);
+        const page         = await pdf.getPage(pageNumber);
         if (cancelled) return;
 
         const container    = containerRef.current;
-        const available    = Math.min((container?.clientWidth ?? 800) - 32, 900);
-        const baseViewport  = page.getViewport({ scale: 1 });
-        const availableH    = Math.max(400, window.innerHeight - 380);
-        const scaleByWidth  = available / baseViewport.width;
-        const scaleByHeight = availableH / baseViewport.height;
-        const scale         = Math.min(scaleByWidth, scaleByHeight);
-        const viewport      = page.getViewport({ scale });
+        const fs           = !!document.fullscreenElement;
+        const availableW   = Math.min((container?.clientWidth ?? 800) - 32, fs ? 99999 : 900);
+        const availableH   = Math.max(400, window.innerHeight - (fs ? 110 : 380));
+        const baseViewport = page.getViewport({ scale: 1 });
+        const scale        = Math.min(availableW / baseViewport.width, availableH / baseViewport.height);
+        const viewport     = page.getViewport({ scale });
         const canvas       = canvasRef.current;
 
         canvas.width  = Math.floor(viewport.width);
         canvas.height = Math.floor(viewport.height);
 
         const ctx = canvas.getContext('2d');
-
         const task = page.render({ canvasContext: ctx, viewport });
         renderTask.current = task;
         await task.promise;
@@ -94,10 +105,22 @@ export default function PdfViewer({ url }) {
 
     render();
     return () => { cancelled = true; };
-  }, [pdf, pageNumber]);
+  }, [pdf, pageNumber, renderKey]);
 
   const prev = () => setPageNumber(p => Math.max(1, p - 1));
   const next = () => setPageNumber(p => Math.min(numPages, p + 1));
+
+  const toggleFullscreen = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await containerRef.current.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (err) {
+      console.error('Fullscreen error:', err);
+    }
+  };
 
   const handleShare = async () => {
     try {
@@ -112,7 +135,7 @@ export default function PdfViewer({ url }) {
   };
 
   return (
-    <div className="pdf-viewer" ref={containerRef}>
+    <div className={`pdf-viewer${isFullscreen ? ' pdf-viewer--fs' : ''}`} ref={containerRef}>
 
       <div className="pdf-toolbar">
         <div className="pdf-nav">
@@ -133,6 +156,19 @@ export default function PdfViewer({ url }) {
               <>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
                 Share
+              </>
+            )}
+          </button>
+          <button className="pdf-btn pdf-btn-ghost" onClick={toggleFullscreen} aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
+            {isFullscreen ? (
+              <>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3v3a2 2 0 01-2 2H3"/><path d="M21 8h-3a2 2 0 01-2-2V3"/><path d="M3 16h3a2 2 0 012 2v3"/><path d="M16 21v-3a2 2 0 012-2h3"/></svg>
+                Exit
+              </>
+            ) : (
+              <>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 00-2 2v3"/><path d="M21 8V5a2 2 0 00-2-2h-3"/><path d="M3 16v3a2 2 0 002 2h3"/><path d="M16 21h3a2 2 0 002-2v-3"/></svg>
+                Expand
               </>
             )}
           </button>

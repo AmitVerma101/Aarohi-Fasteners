@@ -2144,3 +2144,29 @@ svg {
     padding: 0.75rem 0;
   }
 }
+
+/* PDF fullscreen mode */
+.pdf-viewer:fullscreen,
+.pdf-viewer--fs {
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.pdf-viewer:fullscreen .pdf-canvas-wrap,
+.pdf-viewer--fs .pdf-canvas-wrap {
+  flex: 1;
+  min-height: 0;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.pdf-viewer:fullscreen .pdf-bottom-nav,
+.pdf-viewer--fs .pdf-bottom-nav {
+  flex-shrink: 0;
+}
