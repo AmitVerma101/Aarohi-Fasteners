@@ -143,42 +143,18 @@ function escapeHtml(value) {
 }
 
 async function sendContactEmail(payload) {
-  let nodemailer;
-  try {
-    nodemailer = require('nodemailer');
-  } catch {
-    throw new Error('Mail library not installed. Run npm install in backend.');
+  const RESEND_API_KEY = (process.env.RESEND_API_KEY || '').trim();
+
+  if (!RESEND_API_KEY || !CONTACT_TO_EMAIL) {
+    throw new Error('Mail config missing. Set RESEND_API_KEY and CONTACT_TO_EMAIL.');
   }
 
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS || !CONTACT_TO_EMAIL) {
-    throw new Error('SMTP config missing. Set SMTP_HOST, SMTP_USER, SMTP_PASS, CONTACT_TO_EMAIL.');
-  }
-
-  const transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: SMTP_PORT,
-    secure: SMTP_SECURE,
-    connectionTimeout: Number((process.env.SMTP_CONNECTION_TIMEOUT || '').trim()) || 20000,
-    greetingTimeout: Number((process.env.SMTP_GREETING_TIMEOUT || '').trim()) || 10000,
-    socketTimeout: Number((process.env.SMTP_SOCKET_TIMEOUT || '').trim()) || 20000,
-    auth: {
-      user: SMTP_USER,
-      pass: SMTP_PASS,
-    },
-  });
+  const { Resend } = require('resend');
+  const resend = new Resend(RESEND_API_KEY);
 
   const senderName = `${payload.firstName} ${payload.lastName}`.trim();
-  const fromAddress = CONTACT_FROM_EMAIL || SMTP_USER;
+  const fromAddress = CONTACT_FROM_EMAIL || `contact@${process.env.RESEND_FROM_DOMAIN || 'resend.dev'}`;
   const subject = `Website Contact: ${payload.subject}`;
-  const text = [
-    `Name: ${senderName}`,
-    `Email: ${payload.email}`,
-    `Subject: ${payload.subject}`,
-    '',
-    'Message:',
-    payload.message,
-  ].join('\n');
-
   const html = `
     <h2>New Contact Form Submission</h2>
     <p><strong>Name:</strong> ${escapeHtml(senderName)}</p>
@@ -188,14 +164,15 @@ async function sendContactEmail(payload) {
     <p>${escapeHtml(payload.message).replace(/\n/g, '<br/>')}</p>
   `;
 
-  await transporter.sendMail({
+  const { error } = await resend.emails.send({
     from: fromAddress,
     to: CONTACT_TO_EMAIL,
     replyTo: payload.email,
     subject,
-    text,
     html,
   });
+
+  if (error) throw new Error(error.message || 'Failed to send email.');
 }
 
 async function readDb() {

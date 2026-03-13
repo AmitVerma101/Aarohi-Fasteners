@@ -7,7 +7,8 @@
     "dev": "nodemon --watch src --ext js --ignore data/db.json src/server.js"
   },
   "dependencies": {
-    "nodemailer": "^8.0.2"
+    "nodemailer": "^8.0.2",
+    "resend": "^6.9.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
