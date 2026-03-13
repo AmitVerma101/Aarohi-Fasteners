@@ -1691,3 +1691,265 @@ section { padding: 5.5rem 4rem; }
     height: 260px;
   }
 }
+
+/* Additional responsive hardening */
+img,
+svg {
+  max-width: 100%;
+}
+
+.contact-page {
+  background: var(--white);
+}
+
+.contact-info-text {
+  font-size: .9rem;
+  color: var(--warm-gray);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.about-strip-media {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-strip-image {
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+  display: block;
+}
+
+.nav-mobile-toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--white);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.nav-mobile-toggle span {
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 999px;
+}
+
+.nav-mobile-panel {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .topbar-inner {
+    padding: .45rem 1.2rem;
+  }
+
+  .topbar-left {
+    gap: .9rem;
+  }
+
+  #hero,
+  #about-strip,
+  #categories,
+  #values,
+  #why,
+  .site-footer {
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 6vw, 4rem);
+  }
+
+  .catalogue-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .topbar-item {
+    white-space: normal;
+    line-height: 1.4;
+  }
+
+  .nav-inner {
+    padding: .75rem 1rem;
+    gap: .8rem;
+  }
+
+  .nav-logo-img {
+    height: 34px;
+  }
+
+  .nav-logo-text {
+    font-size: 1.08rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-mobile-toggle {
+    display: inline-flex;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  .nav-mobile-panel {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .2rem;
+    max-height: 0;
+    overflow: hidden;
+    border-top: 1px solid transparent;
+    transition: max-height .25s ease, border-color .25s ease, padding .25s ease;
+    background: var(--blue-dark);
+    padding: 0 1rem;
+  }
+
+  .nav-mobile-panel.open {
+    max-height: 260px;
+    border-top-color: rgba(255, 255, 255, .12);
+    padding: .6rem 1rem .9rem;
+  }
+
+  .nav-mobile-panel a {
+    color: rgba(255, 255, 255, .8);
+    text-decoration: none;
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    padding: .5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+  }
+
+  .nav-mobile-panel a.active {
+    color: var(--accent-light);
+  }
+
+  .hero-actions {
+    gap: .7rem;
+  }
+
+  .hero-subtitle {
+    max-width: none;
+  }
+
+  .products-line-item {
+    grid-template-columns: 96px 1fr;
+    gap: .8rem;
+    padding: .75rem;
+  }
+
+  .products-line-thumb {
+    width: 96px;
+    height: 96px;
+  }
+
+  .products-line-desc {
+    grid-column: 1 / -1;
+    font-size: .82rem;
+  }
+
+  .catalogue-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: .2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  section {
+    padding: 3.2rem 1rem;
+  }
+
+  #hero,
+  #about-strip,
+  #categories,
+  #values,
+  #why,
+  .site-footer,
+  .footer4-inner,
+  .contact-map-wrap {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .section-title {
+    margin-bottom: 1.6rem;
+  }
+
+  #hero {
+    min-height: auto;
+    gap: 1.8rem;
+  }
+
+  .hero-eyebrow {
+    letter-spacing: .15em;
+  }
+
+  .hero-title {
+    font-size: clamp(1.9rem, 11vw, 2.8rem);
+    line-height: 1.08;
+  }
+
+  .btn-primary,
+  .btn-ghost {
+    width: 100%;
+    text-align: center;
+  }
+
+  .categories-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-main-title {
+    font-size: clamp(1.8rem, 9vw, 2.8rem);
+  }
+
+  .about-main-copy {
+    font-size: .88rem;
+  }
+
+  .about-vm-card,
+  .about-core-card {
+    padding: 1.1rem 1rem;
+  }
+
+  .contact-detail-item {
+    align-items: flex-start;
+  }
+
+  .contact-action-row {
+    flex-wrap: wrap;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-submit {
+    width: 100%;
+  }
+
+  .contact-map-frame iframe {
+    height: 240px;
+  }
+}

@@ -63,12 +63,12 @@ export default function ContactPage() {
   };
 
   return (
-    <section style={{ background: 'var(--white)' }}>
+    <section className="contact-page">
       <div className="contact-wrap">
         <div className="fade-in">
           <p className="section-tag">Get in touch</p>
           <h2 className="section-title">We&apos;d love to<br />hear from you.</h2>
-          <p className="contact-info-text" style={{ fontSize: '.9rem', color: 'var(--warm-gray)', lineHeight: 1.8, marginBottom: '2rem' }}>
+          <p className="contact-info-text">
             Have a question about a product, bulk orders, or just want to say hello? We read every message and reply within 24 hours.
           </p>
           <div className="contact-detail">

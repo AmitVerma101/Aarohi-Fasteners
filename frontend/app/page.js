@@ -157,14 +157,16 @@ export default function HomePage() {
       </section>
 
       <section id="about-strip">
-        <Image
+        <div className="about-strip-media fade-in">
+          <Image
             src="/images/vision_mission.webp"
             alt="HBS Fasteners products"
             width={600}
             height={600}
-            style={{ objectFit: 'contain', display: 'block' }}
+            className="about-strip-image"
             priority
-        />
+          />
+        </div>
         <div className="about-text fade-in">
           <p className="section-tag">Vision &amp; Mission</p>
           <h2 className="section-title">Our Vision &amp; Mission</h2>
