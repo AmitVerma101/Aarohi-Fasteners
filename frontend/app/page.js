@@ -10,34 +10,34 @@ import { fetchCategories } from '@/lib/api';
 const FALLBACK_HOME_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,3 21,8 21,16 12,21 3,16 3,8" /><circle cx="12" cy="12" r="3" /></svg>';
 const WHY_CHOOSE_POINTS = [
   {
-    icon: 'legacy',
-    title: 'Legacy of Manufacturing Excellence',
-    detail: 'Backed by an industrial legacy that began in 1986 under the leadership of Mr. Sushil Bansal Ji, we bring decades of expertise, innovation, and trust into every product we manufacture.',
-  },
-  {
-    icon: 'control',
-    title: 'Complete In-House Manufacturing Control',
-    detail: 'From wire drawing to final fastener production, all critical processes are managed in-house. This end-to-end control ensures consistent quality, faster execution, and dependable supply.',
+    icon: 'quality',
+    title: 'High Quality Products',
+    detail: 'We provide reliable and durable fastening solutions that meet industry standards.',
   },
   {
     icon: 'material',
-    title: 'Superior Raw Material Quality',
-    detail: 'We use only premium-grade stainless steel (all grades), mild steel, brass, copper, and aluminium. Our in-house wire drawing facility ensures better strength, finish, and long-term performance.',
+    title: 'Wide Product Range',
+    detail: 'A complete range of nuts, bolts, washers, screws, and other fastening components.',
   },
   {
     icon: 'custom',
-    title: 'Customization & OEM Expertise',
-    detail: 'We specialize in developing customized fasteners and precision components as per customer drawings, samples, and specifications, supported by strong technical and prototype development capabilities.',
-  },
-  {
-    icon: 'quality',
-    title: 'Strict Quality Assurance',
-    detail: 'Quality is embedded at every stage of manufacturing. In-process and final inspections, dimensional checks, and thread testing ensure every fastener meets international quality and performance standards.',
+    title: 'Competitive Pricing',
+    detail: 'Best quality products at reasonable and market-competitive prices.',
   },
   {
     icon: 'delivery',
-    title: 'Short Lead Time & Reliable Delivery',
-    detail: 'Thanks to efficient processes and easy raw material availability, we offer very short lead times, enabling us to handle urgent, bulk, and project-based requirements with confidence.',
+    title: 'Timely Delivery',
+    detail: 'Strong supply network to ensure on-time delivery for every order.',
+  },
+  {
+    icon: 'control',
+    title: 'Customer Satisfaction',
+    detail: 'We focus on building long-term relationships with our customers.',
+  },
+  {
+    icon: 'legacy',
+    title: 'Trusted Service',
+    detail: 'Professional support and dependable service you can rely on.',
   },
 ];
 
