@@ -44,6 +44,7 @@ const SMTP_PASS = (process.env.SMTP_PASS || '').trim();
 const CONTACT_TO_EMAIL = (process.env.CONTACT_TO_EMAIL || '').trim();
 const CONTACT_FROM_EMAIL = (process.env.CONTACT_FROM_EMAIL || '').trim();
 const DB_PATH = path.join(__dirname, '..', 'data', 'db.json');
+const DB_SEED_PATH = path.join(__dirname, '..', 'data', 'db.seed.json');
 const BACKEND_ROOT = path.join(__dirname, '..');
 const ASSETS_ROOT = path.join(BACKEND_ROOT, 'assets');
 const PRODUCT_ASSETS_ROOT = path.join(ASSETS_ROOT, 'products');
@@ -362,6 +363,10 @@ async function autoSyncProductsFromFolders(db, options = {}) {
 }
 
 async function ensureDbInitialized() {
+  if (!fsSync.existsSync(DB_PATH) && fsSync.existsSync(DB_SEED_PATH)) {
+    await fs.copyFile(DB_SEED_PATH, DB_PATH);
+  }
+
   const db = await readDb();
 
   if (!db.categories.length) {

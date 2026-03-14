@@ -32,3 +32,6 @@ Thumbs.db
 coverage/
 .tmp/
 tmp/
+
+# Live database — never commit, seeded from db.seed.json on first run
+backend/data/db.json
