@@ -31,7 +31,6 @@ function ImageZoom({ src, alt }) {
 
   const reset = () => { setScale(1); setPos({ x: 0, y: 0 }); };
 
-  const onWheel = (e) => { e.preventDefault(); adjustZoom(e.deltaY < 0 ? 0.3 : -0.3); };
 
   const onMouseDown = (e) => {
     if (scale === 1) return;
@@ -65,7 +64,6 @@ function ImageZoom({ src, alt }) {
     <div className="pz-wrap">
       <div
         className={`pz-stage${scale > 1 ? ' pz-zoomed' : ''}${dragging ? ' pz-dragging' : ''}`}
-        onWheel={onWheel}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
@@ -117,7 +115,7 @@ function ImageZoom({ src, alt }) {
             </svg>
           </button>
         )}
-        <span className="pz-hint">{scale === 1 ? 'Scroll or pinch to zoom' : 'Drag to pan'}</span>
+        <span className="pz-hint">{scale === 1 ? 'Use buttons or pinch to zoom' : 'Drag to pan'}</span>
       </div>
     </div>
   );
