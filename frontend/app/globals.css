@@ -2224,7 +2224,7 @@ svg {
 
 /* ── Product Detail Page ─────────────────────────────── */
 .pd-section {
-  padding: 3rem 4rem 5rem;
+  padding: 2rem 4rem 5rem;
 }
 
 .pd-breadcrumb {
@@ -2625,16 +2625,36 @@ svg {
   margin-bottom: 0.4rem;
 }
 
-/* Breadcrumb wrappers for pages that don't have a pd-section container */
-.about-breadcrumb-wrap,
-.catalogue-breadcrumb-wrap {
-  padding: 1.5rem 2rem 0;
-  max-width: 1200px;
+/* Consistent breadcrumb strip above page sections */
+.bc-wrap {
+  padding: 1.6rem 4rem 0;
+  max-width: 1400px;
   margin: 0 auto;
 }
+/* Reduce section top padding when breadcrumb sits above it */
+section.bc-below { padding-top: 2.5rem; }
+
+/* Catalogue breadcrumb — on dark hero background */
+.catalogue-bc {
+  max-width: 980px;
+  margin: 0 auto;
+  padding-bottom: 1.5rem;
+}
+.catalogue-bc .pd-breadcrumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.catalogue-bc .pd-breadcrumb a,
+.catalogue-bc .pd-breadcrumb-current {
+  color: rgba(240, 244, 250, 0.75);
+}
+.catalogue-bc .pd-breadcrumb a:hover { color: var(--accent-light); }
+.catalogue-bc .pd-bc-sep { color: var(--accent-light); }
+
+@media (max-width: 860px) {
+  .bc-wrap { padding: 1.4rem 1.4rem 0; }
+}
 @media (max-width: 600px) {
-  .about-breadcrumb-wrap,
-  .catalogue-breadcrumb-wrap {
-    padding: 1rem 1rem 0;
-  }
+  .bc-wrap { padding: 1.2rem 1rem 0; }
+  .catalogue-bc { padding-bottom: 1rem; }
 }

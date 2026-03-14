@@ -46,8 +46,11 @@ export default function ContactPage() {
 
 
   return (
-    <section className="contact-page">
-      <Breadcrumb items={[{ label: 'Contact' }]} />
+    <>
+      <div className="bc-wrap">
+        <Breadcrumb items={[{ label: 'Contact' }]} />
+      </div>
+      <section className="contact-page bc-below">
       <div className="contact-wrap">
         <div className="fade-in">
           <p className="section-tag">Get in touch</p>
@@ -126,5 +129,6 @@ export default function ContactPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }

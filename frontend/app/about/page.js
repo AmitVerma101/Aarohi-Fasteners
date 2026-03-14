@@ -5,7 +5,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 export default function AboutPage() {
   return (
     <div className="about-page">
-      <div className="about-breadcrumb-wrap">
+      <div className="bc-wrap">
         <Breadcrumb items={[{ label: 'About Us' }]} />
       </div>
       <section className="about-intro-wrap">

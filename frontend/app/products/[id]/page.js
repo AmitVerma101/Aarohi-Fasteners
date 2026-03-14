@@ -172,13 +172,15 @@ export default function ProductDetailPage() {
   const descBlocks = parseDescription(product.description || '');
 
   return (
-    <section className="pd-section">
-
-      <Breadcrumb items={[
-        { label: 'Products', href: '/products' },
-        { label: product.category, href: `/products?category=${encodeURIComponent(product.category)}` },
-        { label: product.name },
-      ]} />
+    <>
+      <div className="bc-wrap">
+        <Breadcrumb items={[
+          { label: 'Products', href: '/products' },
+          { label: product.category, href: `/products?category=${encodeURIComponent(product.category)}` },
+          { label: product.name },
+        ]} />
+      </div>
+      <section className="pd-section">
 
       {/* Main layout */}
       <div className="pd-main">
@@ -245,5 +247,6 @@ export default function ProductDetailPage() {
       </div>
 
     </section>
+    </>
   );
 }

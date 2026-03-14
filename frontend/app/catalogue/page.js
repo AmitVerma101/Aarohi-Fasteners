@@ -12,10 +12,10 @@ export const metadata = {
 export default function CataloguePage() {
   return (
     <main className="catalogue-page">
-      <div className="catalogue-breadcrumb-wrap">
-        <Breadcrumb items={[{ label: 'Catalogue' }]} />
-      </div>
       <div className="catalogue-hero">
+        <div className="catalogue-bc">
+          <Breadcrumb items={[{ label: 'Catalogue' }]} />
+        </div>
         <h1 className="catalogue-title">Product Catalogue</h1>
         <p className="catalogue-subtitle">Browse our complete range of precision fastening solutions</p>
       </div>

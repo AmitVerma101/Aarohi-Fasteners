@@ -65,8 +65,11 @@ export default function ProductsPage() {
   }, [categories]);
 
   return (
-    <section>
-      <Breadcrumb items={[{ label: 'Products' }]} />
+    <>
+      <div className="bc-wrap">
+        <Breadcrumb items={[{ label: 'Products' }]} />
+      </div>
+      <section className="bc-below">
       <p className="section-tag fade-in">Full Catalogue</p>
       <h2 className="section-title fade-in">Everything we make</h2>
 
@@ -149,5 +152,6 @@ export default function ProductsPage() {
         </div>
       )}
     </section>
+    </>
   );
 }
