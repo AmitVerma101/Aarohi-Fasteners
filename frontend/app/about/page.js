@@ -9,23 +9,27 @@ export default function AboutPage() {
         <Breadcrumb items={[{ label: 'About Us' }]} />
       </div>
       <section className="about-intro-wrap">
-        <div className="about-intro-grid">
-          <div className="fade-in">
-            <p className="section-tag">About Us</p>
-            <h1 className="about-main-title">Built for Precision. Trusted for Performance.</h1>
-            <p className="about-main-copy">
-              Aarohi Fastening Solutions is a manufacturing-driven company focused on delivering precision-engineered fasteners and
-              components for demanding industrial applications. With decades of experience, strong process control, and
-              a quality-first mindset, we support customers with reliable products and dependable execution.
+        <div className="fade-in">
+          <p className="section-tag">About Us</p>
+          <h1 className="about-main-title">Quality You Can Count On Every Turn.</h1>
+          <div className="about-body">
+            <p>
+              Aarohi Fastening Solutions (AFS) is a reliable supplier of industrial fasteners, dedicated to providing
+              high-quality products and dependable service to our customers. We specialize in a wide range of fastening
+              products including nuts, bolts, washers, screws, and customized fastening components for various industrial
+              applications.
             </p>
-            <div className="about-intro-points">
-              <span>Since 1986</span>
-              <span>In-House Manufacturing</span>
-              <span>OEM Capability</span>
-            </div>
-          </div>
-          <div className="about-image-space fade-in">
-            <span>Image Space</span>
+            <p>
+              Our focus is to deliver products that meet international standards of quality, strength, and durability.
+              With strong vendor partnerships and efficient supply capabilities, we ensure timely delivery and competitive
+              pricing for our clients.
+            </p>
+            <p>
+              At AFS, we understand that every industry requires precision and reliability in fastening solutions.
+              Therefore, we maintain strict quality checks and continuously work to improve our product range and service
+              standards. Our goal is to build long-term relationships with customers by offering trusted solutions and
+              professional support.
+            </p>
           </div>
         </div>
       </section>
