@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import CatalogueItem from '@/components/CatalogueItem';
+import Loader from '@/components/Loader';
+import ApiError from '@/components/ApiError';
 import { fetchProducts } from '@/lib/api';
 
 export default function ProductsPage() {
@@ -11,14 +13,15 @@ export default function ProductsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
+  const load = useCallback(() => {
     let active = true;
+    setLoading(true);
+    setError('');
 
     fetchProducts()
       .then((items) => {
         if (!active) return;
         setProducts(items);
-        setError('');
       })
       .catch((err) => {
         if (!active) return;
@@ -29,10 +32,13 @@ export default function ProductsPage() {
         setLoading(false);
       });
 
-    return () => {
-      active = false;
-    };
+    return () => { active = false; };
   }, []);
+
+  useEffect(() => {
+    const cleanup = load();
+    return cleanup;
+  }, [load]);
 
   const categories = useMemo(
     () => ['All', ...new Set(products.map((p) => p.category))],
@@ -102,8 +108,8 @@ export default function ProductsPage() {
         </div>
       </div>
 
-      {loading ? <p>Loading catalogue...</p> : null}
-      {error ? <p style={{ color: 'crimson' }}>{error}</p> : null}
+      {loading ? <Loader message="Loading catalogue…" /> : null}
+      {error ? <ApiError message={error} onRetry={load} /> : null}
 
       {viewMode === 'grid' ? (
         <div className="catalogue-grid">

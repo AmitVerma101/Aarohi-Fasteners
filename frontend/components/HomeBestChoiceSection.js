@@ -1,36 +1,44 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ProductCard from '@/components/ProductCard';
+import Loader from '@/components/Loader';
+import ApiError from '@/components/ApiError';
 import { fetchProducts } from '@/lib/api';
 
 export default function HomeBestChoiceSection() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  useEffect(() => {
+  const load = useCallback(() => {
     let active = true;
+    setLoading(true);
+    setError('');
 
     fetchProducts({ bestChoice: true })
       .then((products) => {
         if (!active) return;
         setItems(products);
       })
-      .catch(() => {
+      .catch((err) => {
         if (!active) return;
-        setItems([]);
+        setError(err.message || 'Failed to load products');
       })
       .finally(() => {
         if (!active) return;
         setLoading(false);
       });
 
-    return () => {
-      active = false;
-    };
+    return () => { active = false; };
   }, []);
 
-  if (!loading && !items.length) return null;
+  useEffect(() => {
+    const cleanup = load();
+    return cleanup;
+  }, [load]);
+
+  if (!loading && !error && !items.length) return null;
 
   return (
     <section>
@@ -41,7 +49,8 @@ export default function HomeBestChoiceSection() {
         </div>
       </div>
 
-      {loading ? <p>Loading best choices...</p> : null}
+      {loading ? <Loader message="Loading products…" /> : null}
+      {error ? <ApiError message={error} onRetry={load} /> : null}
 
       <div className="product-grid">
         {items.map((product) => (

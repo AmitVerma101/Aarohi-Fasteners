@@ -1,8 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Loader from '@/components/Loader';
+import ApiError from '@/components/ApiError';
 import { fetchCategories } from '@/lib/api';
 
 const FALLBACK_HOME_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,3 21,8 21,16 12,21 3,16 3,8" /><circle cx="12" cy="12" r="3" /></svg>';
@@ -102,28 +104,34 @@ function WhyIcon({ type }) {
 export default function HomePage() {
   const [recommendedCategories, setRecommendedCategories] = useState([]);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [categoriesError, setCategoriesError] = useState('');
 
-  useEffect(() => {
+  const loadCategories = useCallback(() => {
     let active = true;
+    setCategoriesLoading(true);
+    setCategoriesError('');
 
     fetchCategories()
       .then((items) => {
         if (!active) return;
         setRecommendedCategories(items.filter((category) => category.isRecommended));
       })
-      .catch(() => {
+      .catch((err) => {
         if (!active) return;
-        setRecommendedCategories([]);
+        setCategoriesError(err.message || 'Failed to load categories');
       })
       .finally(() => {
         if (!active) return;
         setCategoriesLoading(false);
       });
 
-    return () => {
-      active = false;
-    };
+    return () => { active = false; };
   }, []);
+
+  useEffect(() => {
+    const cleanup = loadCategories();
+    return cleanup;
+  }, [loadCategories]);
 
   return (
     <>
@@ -190,7 +198,8 @@ export default function HomePage() {
           <h2 className="section-title">Our Product Range</h2>
           <p className="section-subtitle">Our recommended categories, managed from the admin panel.</p>
         </div>
-        {categoriesLoading ? <p>Loading categories...</p> : null}
+        {categoriesLoading ? <Loader message="Loading categories…" /> : null}
+        {categoriesError ? <ApiError message={categoriesError} onRetry={loadCategories} /> : null}
         <div className="categories-grid">
           {recommendedCategories.map((category) => (
             <Link href="/products" className="cat-card fade-in" key={category.name}>
