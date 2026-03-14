@@ -12,6 +12,110 @@ import {
   updateProduct,
 } from '@/lib/api';
 
+/* ─── Description helpers ────────────────────────────── */
+function assembleDescription({ overview, specs, materials, applications }) {
+  const lines = [];
+
+  if (overview.trim()) {
+    lines.push('Description');
+    lines.push(overview.trim());
+    lines.push('');
+  }
+
+  const filled = (rows) => rows.filter((r) => r.key.trim() && r.value.trim());
+
+  if (filled(specs).length) {
+    lines.push('Technical Specifications');
+    filled(specs).forEach((r) => lines.push(`${r.key.trim()}: ${r.value.trim()}`));
+    lines.push('');
+  }
+  if (filled(materials).length) {
+    lines.push('Material & Quality Excellence');
+    filled(materials).forEach((r) => lines.push(`${r.key.trim()}: ${r.value.trim()}`));
+    lines.push('');
+  }
+  if (filled(applications).length) {
+    lines.push('Key Application Areas');
+    filled(applications).forEach((r) => lines.push(`${r.key.trim()}: ${r.value.trim()}`));
+  }
+
+  return lines.join('\n').trim();
+}
+
+function parseDetailsFromDescription(desc) {
+  const empty = { overview: '', specs: [], materials: [], applications: [] };
+  if (!desc) return empty;
+
+  let section = null;
+  let overview = '';
+  const specs = [], materials = [], applications = [];
+
+  for (const raw of desc.split('\n')) {
+    const line = raw.trim();
+    if (!line) continue;
+    const ci = line.indexOf(':');
+    const isSpec = ci > 0 && ci <= 40 && line[ci + 1] === ' ';
+    const isHeading = ci === -1 && line.length <= 50;
+
+    if (isHeading) {
+      const l = line.toLowerCase();
+      if (l === 'description') { section = 'overview'; continue; }
+      if (l.includes('technical') || l.includes('specification')) { section = 'specs'; continue; }
+      if (l.includes('material') || l.includes('quality')) { section = 'materials'; continue; }
+      if (l.includes('application') || l.includes('area')) { section = 'applications'; continue; }
+    } else if (isSpec) {
+      const row = { key: line.slice(0, ci).trim(), value: line.slice(ci + 2).trim() };
+      if (section === 'specs') specs.push(row);
+      else if (section === 'materials') materials.push(row);
+      else if (section === 'applications') applications.push(row);
+    } else {
+      if (section === 'overview' || section === null) {
+        overview += (overview ? '\n' : '') + line;
+        section = 'overview';
+      }
+    }
+  }
+
+  return { overview, specs, materials, applications };
+}
+
+/* ─── Key-value section editor ──────────────────────── */
+function KvSection({ title, rows, onChange }) {
+  function addRow() { onChange([...rows, { key: '', value: '' }]); }
+  function removeRow(i) { onChange(rows.filter((_, idx) => idx !== i)); }
+  function update(i, field, val) {
+    onChange(rows.map((r, idx) => (idx === i ? { ...r, [field]: val } : r)));
+  }
+  return (
+    <div className="kv-section">
+      <div className="kv-section-head">
+        <span className="kv-section-title">{title}</span>
+        <button type="button" className="kv-add-btn" onClick={addRow}>+ Add row</button>
+      </div>
+      {rows.length === 0 && (
+        <p className="kv-empty">No rows yet — click "+ Add row" to add entries.</p>
+      )}
+      {rows.map((row, i) => (
+        <div key={i} className="kv-row">
+          <input
+            type="text"
+            placeholder="Label (e.g. Drive Type)"
+            value={row.key}
+            onChange={(e) => update(i, 'key', e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Detail"
+            value={row.value}
+            onChange={(e) => update(i, 'value', e.target.value)}
+          />
+          <button type="button" className="kv-remove-btn" onClick={() => removeRow(i)} title="Remove row">×</button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function fileToDataUrl(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -33,11 +137,12 @@ export default function AdminPage() {
     id: null,
     name: '',
     category: '',
-    description: '',
+    isBestChoice: false,
     homeSvg: '',
     imageFile: null,
     imageSrc: '',
   });
+  const [productDetails, setProductDetails] = useState({ overview: '', specs: [], materials: [], applications: [] });
   const [productPreview, setProductPreview] = useState('');
 
   const categoryOptions = useMemo(() => categories.map((category) => category.name), [categories]);
@@ -99,11 +204,12 @@ export default function AdminPage() {
       id: null,
       name: '',
       category: prev.category || categories[0]?.name || '',
-      description: '',
+      isBestChoice: false,
       homeSvg: '',
       imageFile: null,
       imageSrc: '',
     }));
+    setProductDetails({ overview: '', specs: [], materials: [], applications: [] });
     setActiveModal('product');
   }
 
@@ -112,11 +218,12 @@ export default function AdminPage() {
       id: product.id,
       name: product.name,
       category: product.category,
-      description: product.description || '',
+      isBestChoice: Boolean(product.isBestChoice),
       homeSvg: product.homeSvg || '',
       imageFile: null,
       imageSrc: product.imageSrc || '',
     });
+    setProductDetails(parseDetailsFromDescription(product.description || ''));
     setActiveModal('product');
   }
 
@@ -168,7 +275,8 @@ export default function AdminPage() {
       const payload = {
         name: productForm.name,
         category: productForm.category,
-        description: productForm.description,
+        description: assembleDescription(productDetails),
+        isBestChoice: productForm.isBestChoice,
         homeSvg: productForm.homeSvg,
       };
 
@@ -408,17 +516,43 @@ export default function AdminPage() {
                 />
               </div>
 
-              <div className="form-group">
-                <label>Description</label>
-                <textarea
-                  rows="8"
-                  value={productForm.description}
-                  onChange={(e) => setProductForm((prev) => ({ ...prev, description: e.target.value }))}
-                  placeholder="Enter product description..."
+              <div className="form-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '.6rem' }}>
+                <input
+                  id="prod-best-choice"
+                  type="checkbox"
+                  checked={productForm.isBestChoice}
+                  onChange={(e) => setProductForm((prev) => ({ ...prev, isBestChoice: e.target.checked }))}
                 />
-                <p style={{ fontSize: '0.78rem', color: '#5a6a8a', marginTop: '0.35rem', lineHeight: 1.5 }}>
-                  <strong>Format tip:</strong> Short lines without a colon become section headers. Lines like <code>Drive Type: Six-lobe Torx</code> become spec rows. Everything else renders as a paragraph.
-                </p>
+                <label htmlFor="prod-best-choice" style={{ margin: 0 }}>Mark as Best Choice (shown on home page)</label>
+              </div>
+
+              <div className="form-group">
+                <label>Overview / Introduction</label>
+                <textarea
+                  rows="3"
+                  value={productDetails.overview}
+                  onChange={(e) => setProductDetails((prev) => ({ ...prev, overview: e.target.value }))}
+                  placeholder="Brief description of the product and its main benefits..."
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Product Details</label>
+                <KvSection
+                  title="Technical Specifications"
+                  rows={productDetails.specs}
+                  onChange={(rows) => setProductDetails((prev) => ({ ...prev, specs: rows }))}
+                />
+                <KvSection
+                  title="Material &amp; Quality"
+                  rows={productDetails.materials}
+                  onChange={(rows) => setProductDetails((prev) => ({ ...prev, materials: rows }))}
+                />
+                <KvSection
+                  title="Key Application Areas"
+                  rows={productDetails.applications}
+                  onChange={(rows) => setProductDetails((prev) => ({ ...prev, applications: rows }))}
+                />
               </div>
 
               <div className="form-group">

@@ -83,7 +83,7 @@ export default function SiteHeader() {
             ) : null}
             <span className="nav-logo-text">
               Aarohi Fastening Solutions
-              <span className="nav-logo-sub">Precision Fastening Solutions</span>
+              <span className="nav-logo-sub">Quality You Can Count On Every Turn</span>
             </span>
           </Link>
           <ul className="nav-links">

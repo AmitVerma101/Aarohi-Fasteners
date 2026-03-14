@@ -2594,6 +2594,77 @@ svg {
 }
 
 /* ═══════════════════════════════
+   ADMIN KV SECTION EDITOR
+═══════════════════════════════ */
+.kv-section {
+  border: 1px solid var(--soft);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  background: rgba(220, 230, 245, 0.2);
+}
+.kv-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.55rem;
+}
+.kv-section-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.kv-add-btn {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: none;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 0.18rem 0.55rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.kv-add-btn:hover { background: var(--accent); color: #fff; }
+.kv-row {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+.kv-row input {
+  flex: 1;
+  font-size: 0.82rem;
+  padding: 0.32rem 0.6rem;
+  border: 1px solid var(--soft);
+  border-radius: 5px;
+  background: var(--white);
+  color: var(--ink);
+}
+.kv-row input:first-child { flex: 0 0 34%; }
+.kv-row input:focus { outline: none; border-color: var(--accent); }
+.kv-remove-btn {
+  background: none;
+  border: none;
+  color: var(--warm-gray);
+  font-size: 1.15rem;
+  line-height: 1;
+  padding: 0 0.15rem;
+  cursor: pointer;
+  transition: color 0.15s;
+  flex-shrink: 0;
+}
+.kv-remove-btn:hover { color: crimson; }
+.kv-empty {
+  font-size: 0.75rem;
+  color: var(--warm-gray);
+  font-style: italic;
+  padding: 0.1rem 0 0.2rem;
+}
+
+/* ═══════════════════════════════
    PRODUCT DESCRIPTION BLOCKS
 ═══════════════════════════════ */
 .pd-desc-heading {

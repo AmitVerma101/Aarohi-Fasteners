@@ -138,7 +138,7 @@ export default function HomePage() {
       <section id="hero">
         <div className="hero-bg" />
         <div className="hero-text">
-          <p className="hero-eyebrow">Precision Fastening Solutions</p>
+          <p className="hero-eyebrow">Quality You Can Count On Every Turn</p>
           <h1 className="hero-title">
             Built on <em>Legacy,</em>
             <br />
