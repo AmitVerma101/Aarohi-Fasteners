@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://aarohi-fasteners-production.up.railway.app';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.afsind.com';
 
 function resolveImageSrc(src) {
   if (!src || typeof src !== 'string') return '';
