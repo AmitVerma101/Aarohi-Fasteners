@@ -534,6 +534,7 @@ section { padding: 5.5rem 4rem; }
   aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
   overflow: hidden;
   background: #fff;
+  padding: 10%;
 }
 .catalogue-media {
   width: 100%;
@@ -892,7 +893,7 @@ section { padding: 5.5rem 4rem; }
   .catalogue-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .admin-token-sticky { top: 66px; }
   .products-toolbar { align-items: stretch; }
-  .products-view-switch { justify-content: flex-start; }
+  .products-view-switch { display: none; }
   .products-line-item { grid-template-columns: 112px 1fr; }
   .products-line-thumb { width: 112px; height: 112px; }
   .products-line-desc { grid-column: 1 / -1; }
