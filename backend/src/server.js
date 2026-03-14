@@ -222,7 +222,9 @@ async function readDb() {
 }
 
 async function writeDb(db) {
-  await fs.writeFile(DB_PATH, JSON.stringify(db, null, 2), 'utf8');
+  const data = JSON.stringify(db, null, 2);
+  await fs.writeFile(DB_PATH, data, 'utf8');
+  await fs.writeFile(DB_SEED_PATH, data, 'utf8');
 }
 
 async function parseBody(req) {
