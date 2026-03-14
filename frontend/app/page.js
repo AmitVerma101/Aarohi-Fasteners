@@ -196,13 +196,12 @@ export default function HomePage() {
         <div className="section-header fade-in">
           <p className="section-tag">What We Supply</p>
           <h2 className="section-title">Our Product Range</h2>
-          <p className="section-subtitle">Our recommended categories, managed from the admin panel.</p>
         </div>
         {categoriesLoading ? <Loader message="Loading categories…" /> : null}
         {categoriesError ? <ApiError message={categoriesError} onRetry={loadCategories} /> : null}
         <div className="categories-grid">
           {recommendedCategories.map((category) => (
-            <Link href="/products" className="cat-card fade-in" key={category.name}>
+            <Link href={`/products?category=${encodeURIComponent(category.name)}`} className="cat-card fade-in" key={category.name}>
               <div
                 className="cat-icon"
                 dangerouslySetInnerHTML={{ __html: category.homeSvg || FALLBACK_HOME_SVG }}
