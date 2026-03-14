@@ -38,6 +38,13 @@ export async function fetchProducts(params = {}) {
   }));
 }
 
+export async function fetchProduct(id) {
+  const products = await fetchProducts();
+  const product = products.find((p) => Number(p.id) === Number(id));
+  if (!product) throw new Error('Product not found');
+  return product;
+}
+
 export async function fetchCategories() {
   const data = await request('/api/categories');
   return (data.categories || []).map((category) => {

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
 import CatalogueItem from '@/components/CatalogueItem';
 import Loader from '@/components/Loader';
 import ApiError from '@/components/ApiError';
@@ -124,7 +125,7 @@ export default function ProductsPage() {
       ) : (
         <div className="products-line-list">
           {filteredProducts.map((product) => (
-            <article key={product.id} className="products-line-item fade-in">
+            <Link key={product.id} href={`/products/${product.id}`} className="products-line-item fade-in">
               <div className="products-line-thumb">
                 {product.imageSrc ? (
                   <img
@@ -141,7 +142,7 @@ export default function ProductsPage() {
                 <p>{product.category}</p>
               </div>
               <div className="products-line-desc">{product.description}</div>
-            </article>
+            </Link>
           ))}
         </div>
       )}

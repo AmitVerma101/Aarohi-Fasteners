@@ -1,6 +1,11 @@
+import Link from 'next/link';
+
 export default function CatalogueItem({ product, hidden }) {
   return (
-    <div className={`catalogue-item fade-in${hidden ? ' hidden' : ''}`}>
+    <Link
+      href={`/products/${product.id}`}
+      className={`catalogue-item fade-in${hidden ? ' hidden' : ''}`}
+    >
       <div className="catalogue-img">
         {product.imageSrc ? (
           <img
@@ -16,6 +21,6 @@ export default function CatalogueItem({ product, hidden }) {
         <div className="catalogue-name">{product.name}</div>
         <div className="catalogue-meta">{product.category}</div>
       </div>
-    </div>
+    </Link>
   );
 }
