@@ -9,9 +9,11 @@ import { fetchProducts } from '@/lib/api';
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState('All');
-  const [viewMode, setViewMode] = useState(() =>
-    typeof window !== 'undefined' && window.innerWidth <= 768 ? 'list' : 'grid'
-  );
+  const [viewMode, setViewMode] = useState('grid');
+
+  useEffect(() => {
+    if (window.innerWidth <= 768) setViewMode('list');
+  }, []);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
