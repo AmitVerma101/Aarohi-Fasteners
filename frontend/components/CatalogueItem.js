@@ -20,6 +20,7 @@ export default function CatalogueItem({ product, hidden }) {
       <div className="catalogue-body">
         <div className="catalogue-name">{product.name}</div>
         <div className="catalogue-meta">{product.category}</div>
+        <div className="catalogue-arrow">View Details →</div>
       </div>
     </Link>
   );
