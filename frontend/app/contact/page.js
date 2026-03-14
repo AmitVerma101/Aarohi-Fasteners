@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { sendContactMessage } from '@/lib/api';
 
 export default function ContactPage() {
-  const officeEmail = 'hello@hbsfasteners.com';
+  const officeEmail = 'Sales@afsind.com';
   const officePhone = '+91 74949 29226';
   const [form, setForm] = useState({
     firstName: '',

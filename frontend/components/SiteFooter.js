@@ -74,7 +74,7 @@ export default function SiteFooter() {
             <ul className="footer4-contact">
               <li>HBS Fasteners, Jamnagar, Gujarat, India</li>
               <li><a href="tel:+919876543210">+91 98765 43210</a></li>
-              <li><a href="mailto:sales@hbsfasteners.com">sales@hbsfasteners.com</a></li>
+              <li><a href="mailto:Sales@afsind.com">Sales@afsind.com</a></li>
             </ul>
           </div>
         </div>
