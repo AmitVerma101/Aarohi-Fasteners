@@ -72,7 +72,7 @@ export default function ContactPage() {
             Have a question about a product, bulk orders, or just want to say hello? We read every message and reply within 24 hours.
           </p>
           <div className="contact-detail">
-            <div className="contact-detail-item">📍 <span>Plot No. 20A, IDC Hisar Road, Rohtak, 124001</span></div>
+            <div className="contact-detail-item">📍 <a href="https://maps.google.com/?q=Plot+No.+20A,+IDC+Hisar+Road,+Rohtak,+124001" target="_blank" rel="noreferrer">Plot No. 20A, IDC Hisar Road, Rohtak, 124001</a></div>
             <div className="contact-detail-item">
               ✉️
               <span className="contact-action-row">
@@ -131,11 +131,11 @@ export default function ContactPage() {
 
       <div className="contact-map-wrap fade-in">
         <h3>Visit Our Office</h3>
-        <p>Old IDC, Plot No. 40, Hisar Rd, HSIIDC Industrial Area, Rohtak, Haryana 124001</p>
+        <p>Plot No. 20A, IDC Hisar Road, Rohtak, 124001</p>
         <div className="contact-map-frame">
           <iframe
             title="Office Location Map"
-            src="https://www.google.com/maps?q=Old%20IDC%2C%20Plot%20No.%2040%2C%20Hisar%20Rd%2C%20HSIIDC%20Industrial%20Area%2C%20Rohtak%2C%20Haryana%20124001&z=16&output=embed"
+            src="https://www.google.com/maps?q=Plot+No.+20A,+IDC+Hisar+Road,+Rohtak,+124001&z=16&output=embed"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen

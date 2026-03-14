@@ -72,7 +72,7 @@ export default function SiteFooter() {
           <div className="footer4-col">
             <h5>Contact</h5>
             <ul className="footer4-contact">
-              <li>Aarohi Fastening Solutions, Jamnagar, Gujarat, India</li>
+              <li><a href="https://maps.google.com/?q=Plot+No.+20A,+IDC+Hisar+Road,+Rohtak,+124001" target="_blank" rel="noreferrer">Plot No. 20A, IDC Hisar Road, Rohtak, 124001</a></li>
               <li><a href="tel:+917494929226">+91 74949 29226</a></li>
               <li><a href="mailto:Sales@afsind.com">Sales@afsind.com</a></li>
             </ul>
