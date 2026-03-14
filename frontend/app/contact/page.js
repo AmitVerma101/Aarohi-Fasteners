@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { sendContactMessage } from '@/lib/api';
+import Breadcrumb from '@/components/Breadcrumb';
 import CopyButton from '@/components/CopyButton';
 
 export default function ContactPage() {
@@ -46,6 +47,7 @@ export default function ContactPage() {
 
   return (
     <section className="contact-page">
+      <Breadcrumb items={[{ label: 'Contact' }]} />
       <div className="contact-wrap">
         <div className="fade-in">
           <p className="section-tag">Get in touch</p>

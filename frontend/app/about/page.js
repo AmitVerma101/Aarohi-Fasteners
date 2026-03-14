@@ -1,8 +1,13 @@
 'use client';
 
+import Breadcrumb from '@/components/Breadcrumb';
+
 export default function AboutPage() {
   return (
     <div className="about-page">
+      <div className="about-breadcrumb-wrap">
+        <Breadcrumb items={[{ label: 'About Us' }]} />
+      </div>
       <section className="about-intro-wrap">
         <div className="about-intro-grid">
           <div className="fade-in">

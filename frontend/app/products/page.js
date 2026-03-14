@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import Breadcrumb from '@/components/Breadcrumb';
 import CatalogueItem from '@/components/CatalogueItem';
 import Loader from '@/components/Loader';
 import ApiError from '@/components/ApiError';
@@ -65,6 +66,7 @@ export default function ProductsPage() {
 
   return (
     <section>
+      <Breadcrumb items={[{ label: 'Products' }]} />
       <p className="section-tag fade-in">Full Catalogue</p>
       <h2 className="section-title fade-in">Everything we make</h2>
 

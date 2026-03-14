@@ -1,4 +1,5 @@
 import PdfViewerWrapper from '@/components/PdfViewerWrapper';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const PDF_URL =
   `${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.afsind.com'}/assets/catalogue/HBS%20Fastner%20new%20design%20Final_compressed.pdf`;
@@ -11,6 +12,9 @@ export const metadata = {
 export default function CataloguePage() {
   return (
     <main className="catalogue-page">
+      <div className="catalogue-breadcrumb-wrap">
+        <Breadcrumb items={[{ label: 'Catalogue' }]} />
+      </div>
       <div className="catalogue-hero">
         <h1 className="catalogue-title">Product Catalogue</h1>
         <p className="catalogue-subtitle">Browse our complete range of precision fastening solutions</p>
