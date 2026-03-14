@@ -2309,15 +2309,12 @@ svg {
 }
 
 .pz-img {
-  width: 80%;
-  height: 80%;
+  width: 85%;
+  height: 85%;
   object-fit: contain;
   display: block;
-  transition: transform 0.1s ease;
   will-change: transform;
 }
-
-.pz-zoomed .pz-img { transition: none; }
 
 .pz-no-img {
   display: flex;
@@ -2328,48 +2325,15 @@ svg {
   font-size: 0.85rem;
 }
 
-.pz-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1rem;
-  background: var(--cream);
-  border-top: 1px solid var(--soft);
-}
-
-.pz-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border: 1px solid var(--soft);
-  border-radius: 4px;
-  background: var(--white);
-  color: var(--ink);
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-  flex-shrink: 0;
-}
-.pz-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-.pz-btn:disabled { opacity: 0.35; cursor: default; }
-
-.pz-reset { margin-left: 2px; }
-
-.pz-level {
-  font-size: 0.78rem;
-  font-family: 'DM Sans', sans-serif;
-  color: var(--ink);
-  min-width: 38px;
-  text-align: center;
-  font-weight: 500;
-}
-
-.pz-hint {
-  margin-left: auto;
+.pz-hint-below {
+  padding: 0.5rem 1rem;
   font-size: 0.72rem;
   color: var(--warm-gray);
   font-family: 'DM Sans', sans-serif;
+  text-align: center;
+  background: var(--cream);
+  border-top: 1px solid var(--soft);
+  margin: 0;
 }
 
 .pd-badge {

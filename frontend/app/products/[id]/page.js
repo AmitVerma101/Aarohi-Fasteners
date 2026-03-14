@@ -13,63 +13,26 @@ const PHONE_NUM = '+917494929226';
 
 /* ─── Image Zoom ─────────────────────────────────── */
 function ImageZoom({ src, alt }) {
-  const [scale, setScale] = useState(1);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [dragging, setDragging] = useState(false);
-  const dragOrigin = useRef(null);
-  const lastTouchDist = useRef(null);
+  const [active, setActive] = useState(false);
+  const [origin, setOrigin] = useState({ x: 50, y: 50 });
+  const ref = useRef(null);
 
-  const clamp = (s) => Math.min(4, Math.max(1, s));
-
-  const adjustZoom = useCallback((delta) => {
-    setScale((prev) => {
-      const next = clamp(prev + delta);
-      if (next === 1) setPos({ x: 0, y: 0 });
-      return next;
+  const onMove = useCallback((e) => {
+    const r = ref.current.getBoundingClientRect();
+    setOrigin({
+      x: ((e.clientX - r.left) / r.width) * 100,
+      y: ((e.clientY - r.top) / r.height) * 100,
     });
   }, []);
-
-  const reset = () => { setScale(1); setPos({ x: 0, y: 0 }); };
-
-
-  const onMouseDown = (e) => {
-    if (scale === 1) return;
-    setDragging(true);
-    dragOrigin.current = { x: e.clientX - pos.x, y: e.clientY - pos.y };
-  };
-  const onMouseMove = (e) => {
-    if (!dragging || !dragOrigin.current) return;
-    setPos({ x: e.clientX - dragOrigin.current.x, y: e.clientY - dragOrigin.current.y });
-  };
-  const onMouseUp = () => setDragging(false);
-
-  const onTouchStart = (e) => {
-    if (e.touches.length === 2) {
-      const dx = e.touches[0].clientX - e.touches[1].clientX;
-      const dy = e.touches[0].clientY - e.touches[1].clientY;
-      lastTouchDist.current = Math.hypot(dx, dy);
-    }
-  };
-  const onTouchMove = (e) => {
-    if (e.touches.length !== 2) return;
-    e.preventDefault();
-    const dx = e.touches[0].clientX - e.touches[1].clientX;
-    const dy = e.touches[0].clientY - e.touches[1].clientY;
-    const dist = Math.hypot(dx, dy);
-    if (lastTouchDist.current) adjustZoom((dist - lastTouchDist.current) * 0.015);
-    lastTouchDist.current = dist;
-  };
 
   return (
     <div className="pz-wrap">
       <div
-        className={`pz-stage${scale > 1 ? ' pz-zoomed' : ''}${dragging ? ' pz-dragging' : ''}`}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-        onMouseLeave={onMouseUp}
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
+        ref={ref}
+        className="pz-stage"
+        onMouseEnter={() => setActive(true)}
+        onMouseLeave={() => { setActive(false); setOrigin({ x: 50, y: 50 }); }}
+        onMouseMove={onMove}
       >
         {src ? (
           <img
@@ -78,8 +41,10 @@ function ImageZoom({ src, alt }) {
             className="pz-img"
             draggable={false}
             style={{
-              transform: `scale(${scale}) translate(${pos.x / scale}px, ${pos.y / scale}px)`,
-              cursor: scale > 1 ? (dragging ? 'grabbing' : 'grab') : 'zoom-in',
+              transform: active ? 'scale(2.2)' : 'scale(1)',
+              transformOrigin: `${origin.x}% ${origin.y}%`,
+              transition: 'transform 0.3s ease',
+              cursor: active ? 'crosshair' : 'zoom-in',
             }}
           />
         ) : (
@@ -93,30 +58,7 @@ function ImageZoom({ src, alt }) {
           </div>
         )}
       </div>
-
-      <div className="pz-controls">
-        <button className="pz-btn" onClick={() => adjustZoom(0.5)} title="Zoom in">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
-            <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-            <line x1="11" y1="8" x2="11" y2="14" /><line x1="8" y1="11" x2="14" y2="11" />
-          </svg>
-        </button>
-        <span className="pz-level">{Math.round(scale * 100)}%</span>
-        <button className="pz-btn" onClick={() => adjustZoom(-0.5)} disabled={scale <= 1} title="Zoom out">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
-            <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-            <line x1="8" y1="11" x2="14" y2="11" />
-          </svg>
-        </button>
-        {scale > 1 && (
-          <button className="pz-btn pz-reset" onClick={reset} title="Reset zoom">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
-              <path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8" /><path d="M3 3v5h5" />
-            </svg>
-          </button>
-        )}
-        <span className="pz-hint">{scale === 1 ? 'Use buttons or pinch to zoom' : 'Drag to pan'}</span>
-      </div>
+      <p className="pz-hint-below">Hover to zoom · move to explore</p>
     </div>
   );
 }
