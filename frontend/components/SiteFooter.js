@@ -32,7 +32,7 @@ export default function SiteFooter() {
             <Link href="/" className="footer-shared-logo">
               Aarohi Fastening Solutions
             </Link>
-            <p className="footer4-tagline">Quality You Can Count On Every Turn  Built on Legacy, Quality &amp; Trust</p>
+            <p className="footer4-tagline">Quality You Can Count On Every Turn <br/> Built on Legacy, Quality &amp; Trust</p>
             <div className="footer4-socials">
               <a href="#" className="topbar-social footer-social-icon" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noreferrer">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg>
