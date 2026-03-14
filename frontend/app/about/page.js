@@ -9,7 +9,8 @@ export default function AboutPage() {
         <Breadcrumb items={[{ label: 'About Us' }]} />
       </div>
       <section className="about-intro-wrap">
-        <div className="fade-in">
+        <div className="about-intro-head fade-in">
+          <h2 className="about-since">Your Trusted Fastening Partner</h2>
           <p className="section-tag">About Us</p>
           <h1 className="about-main-title">Quality You Can Count On Every Turn.</h1>
           <div className="about-body">
@@ -30,6 +31,10 @@ export default function AboutPage() {
               standards. Our goal is to build long-term relationships with customers by offering trusted solutions and
               professional support.
             </p>
+          </div>
+          <div className="about-intro-points">
+            <span>In-House Manufacturing</span>
+            <span>OEM Capability</span>
           </div>
         </div>
       </section>

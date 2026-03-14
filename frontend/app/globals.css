@@ -248,6 +248,7 @@ section { padding: 5.5rem 4rem; }
 }
 
 .about-intro-grid,
+.about-intro-head,
 .about-vm-grid,
 .about-core-grid,
 .about-vm-head,
@@ -277,6 +278,15 @@ section { padding: 5.5rem 4rem; }
   color: var(--warm-gray);
   line-height: 1.85;
   max-width: 58ch;
+}
+
+.about-since {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 600;
+  color: var(--gold, #c9a84c);
+  letter-spacing: .04em;
+  margin-bottom: .5rem;
 }
 
 .about-intro-points {
