@@ -15,10 +15,12 @@ export default function PdfViewer({ url }) {
   const canvasRef    = useRef(null);
   const containerRef = useRef(null);
   const renderTask   = useRef(null);
+  const touchStartX  = useRef(null);
 
   const [pdf,          setPdf]          = useState(null);
   const [pageNumber,   setPageNumber]   = useState(1);
   const [numPages,     setNumPages]     = useState(0);
+  const [pageInput,    setPageInput]    = useState('1');
   const [loading,      setLoading]      = useState(true);
   const [rendering,    setRendering]    = useState(false);
   const [error,        setError]        = useState(null);
@@ -52,11 +54,13 @@ export default function PdfViewer({ url }) {
     return () => { cancelled = true; };
   }, [url]);
 
+  /* ── Keep page input in sync ── */
+  useEffect(() => { setPageInput(String(pageNumber)); }, [pageNumber]);
+
   /* ── Fullscreen change listener ── */
   useEffect(() => {
     const onChange = () => {
-      const fs = !!document.fullscreenElement;
-      setIsFullscreen(fs);
+      setIsFullscreen(!!document.fullscreenElement);
       setRenderKey(k => k + 1);
     };
     document.addEventListener('fullscreenchange', onChange);
@@ -71,11 +75,9 @@ export default function PdfViewer({ url }) {
 
     async function render() {
       setRendering(true);
-
       if (renderTask.current) {
         try { renderTask.current.cancel(); } catch {}
       }
-
       try {
         const page         = await pdf.getPage(pageNumber);
         if (cancelled) return;
@@ -92,7 +94,7 @@ export default function PdfViewer({ url }) {
         canvas.width  = Math.floor(viewport.width);
         canvas.height = Math.floor(viewport.height);
 
-        const ctx = canvas.getContext('2d');
+        const ctx  = canvas.getContext('2d');
         const task = page.render({ canvasContext: ctx, viewport });
         renderTask.current = task;
         await task.promise;
@@ -107,26 +109,45 @@ export default function PdfViewer({ url }) {
     return () => { cancelled = true; };
   }, [pdf, pageNumber, renderKey]);
 
-  const prev = () => setPageNumber(p => Math.max(1, p - 1));
-  const next = () => setPageNumber(p => Math.min(numPages, p + 1));
+  /* ── Navigation helpers ── */
+  const goTo    = (n) => setPageNumber(Math.max(1, Math.min(numPages, n)));
+  const prev    = () => goTo(pageNumber - 1);
+  const next    = () => goTo(pageNumber + 1);
+  const toFirst = () => goTo(1);
+  const toLast  = () => goTo(numPages);
 
-  const toggleFullscreen = async () => {
-    try {
-      if (!document.fullscreenElement) {
-        await containerRef.current.requestFullscreen();
-      } else {
-        await document.exitFullscreen();
-      }
-    } catch (err) {
-      console.error('Fullscreen error:', err);
-    }
+  const handlePageInput = (e) => setPageInput(e.target.value);
+  const commitPageInput = () => {
+    const n = parseInt(pageInput, 10);
+    if (!isNaN(n)) goTo(n);
+    else setPageInput(String(pageNumber));
+  };
+  const handlePageKeyDown = (e) => {
+    if (e.key === 'Enter') { e.target.blur(); commitPageInput(); }
   };
 
+  /* ── Swipe support ── */
+  const onTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const onTouchEnd   = (e) => {
+    if (touchStartX.current === null) return;
+    const delta = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 50) delta > 0 ? next() : prev();
+    touchStartX.current = null;
+  };
+
+  /* ── Fullscreen ── */
+  const toggleFullscreen = async () => {
+    try {
+      if (!document.fullscreenElement) await containerRef.current.requestFullscreen();
+      else await document.exitFullscreen();
+    } catch (err) { console.error(err); }
+  };
+
+  /* ── Share ── */
   const handleShare = async () => {
     try {
-      if (navigator.share) {
-        await navigator.share({ title: 'Aarohi Fasteners Catalogue', url });
-      } else {
+      if (navigator.share) await navigator.share({ title: 'Aarohi Fasteners Catalogue', url });
+      else {
         await navigator.clipboard.writeText(url);
         setShareMsg('Link copied!');
         setTimeout(() => setShareMsg(''), 2000);
@@ -134,21 +155,52 @@ export default function PdfViewer({ url }) {
     } catch {}
   };
 
+  const navBar = (
+    <div className="pdf-nav">
+      {/* First */}
+      <button className="pdf-btn pdf-btn-icon" onClick={toFirst} disabled={pageNumber <= 1} aria-label="First page">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg>
+      </button>
+
+      {/* Prev */}
+      <button className="pdf-btn pdf-btn-icon" onClick={prev} disabled={pageNumber <= 1} aria-label="Previous page">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+
+      {/* Page input */}
+      <div className="pdf-page-jump">
+        <input
+          className="pdf-page-input"
+          type="number"
+          min="1"
+          max={numPages || 1}
+          value={pageInput}
+          onChange={handlePageInput}
+          onBlur={commitPageInput}
+          onKeyDown={handlePageKeyDown}
+          disabled={!numPages}
+          aria-label="Go to page"
+        />
+        <span className="pdf-page-sep">/ {loading ? '—' : numPages}</span>
+      </div>
+
+      {/* Next */}
+      <button className="pdf-btn pdf-btn-icon" onClick={next} disabled={!numPages || pageNumber >= numPages} aria-label="Next page">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      {/* Last */}
+      <button className="pdf-btn pdf-btn-icon" onClick={toLast} disabled={!numPages || pageNumber >= numPages} aria-label="Last page">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+      </button>
+    </div>
+  );
+
   return (
     <div className={`pdf-viewer${isFullscreen ? ' pdf-viewer--fs' : ''}`} ref={containerRef}>
 
       <div className="pdf-toolbar">
-        <div className="pdf-nav">
-          <button className="pdf-btn" onClick={prev} disabled={pageNumber <= 1} aria-label="Previous page">
-            &#8592; Prev
-          </button>
-          <span className="pdf-page-info">
-            {loading ? '—' : `${pageNumber} / ${numPages}`}
-          </span>
-          <button className="pdf-btn" onClick={next} disabled={!numPages || pageNumber >= numPages} aria-label="Next page">
-            Next &#8594;
-          </button>
-        </div>
+        {navBar}
 
         <div className="pdf-actions">
           <button className="pdf-btn pdf-btn-ghost" onClick={handleShare} aria-label="Share">
@@ -161,15 +213,9 @@ export default function PdfViewer({ url }) {
           </button>
           <button className="pdf-btn pdf-btn-ghost" onClick={toggleFullscreen} aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
             {isFullscreen ? (
-              <>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3v3a2 2 0 01-2 2H3"/><path d="M21 8h-3a2 2 0 01-2-2V3"/><path d="M3 16h3a2 2 0 012 2v3"/><path d="M16 21v-3a2 2 0 012-2h3"/></svg>
-                Exit
-              </>
+              <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3v3a2 2 0 01-2 2H3"/><path d="M21 8h-3a2 2 0 01-2-2V3"/><path d="M3 16h3a2 2 0 012 2v3"/><path d="M16 21v-3a2 2 0 012-2h3"/></svg> Exit</>
             ) : (
-              <>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 00-2 2v3"/><path d="M21 8V5a2 2 0 00-2-2h-3"/><path d="M3 16v3a2 2 0 002 2h3"/><path d="M16 21h3a2 2 0 002-2v-3"/></svg>
-                Expand
-              </>
+              <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 00-2 2v3"/><path d="M21 8V5a2 2 0 00-2-2h-3"/><path d="M3 16v3a2 2 0 002 2h3"/><path d="M16 21h3a2 2 0 002-2v-3"/></svg> Expand</>
             )}
           </button>
           <a className="pdf-btn pdf-btn-accent" href={url} download aria-label="Download">
@@ -179,7 +225,11 @@ export default function PdfViewer({ url }) {
         </div>
       </div>
 
-      <div className="pdf-canvas-wrap">
+      <div
+        className="pdf-canvas-wrap"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         {loading && (
           <div className="pdf-loading">
             <span className="pdf-spinner" />
@@ -200,9 +250,7 @@ export default function PdfViewer({ url }) {
 
       {numPages > 1 && (
         <div className="pdf-bottom-nav">
-          <button className="pdf-btn" onClick={prev} disabled={pageNumber <= 1}>&#8592; Prev</button>
-          <span className="pdf-page-info">{pageNumber} / {numPages}</span>
-          <button className="pdf-btn" onClick={next} disabled={pageNumber >= numPages}>Next &#8594;</button>
+          {navBar}
         </div>
       )}
 

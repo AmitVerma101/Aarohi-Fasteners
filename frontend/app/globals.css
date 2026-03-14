@@ -2170,3 +2170,41 @@ svg {
 .pdf-viewer--fs .pdf-bottom-nav {
   flex-shrink: 0;
 }
+
+/* PDF nav additions */
+.pdf-btn-icon {
+  padding: 0.45rem 0.6rem;
+}
+
+.pdf-page-jump {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pdf-page-input {
+  width: 48px;
+  padding: 0.3rem 0.4rem;
+  border-radius: 5px;
+  border: 1px solid rgba(201,168,76,.4);
+  background: rgba(255,255,255,.08);
+  color: var(--accent-light);
+  font-size: 0.85rem;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+
+.pdf-page-input::-webkit-outer-spin-button,
+.pdf-page-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.pdf-page-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255,255,255,.12);
+}
+
+.pdf-page-sep {
+  font-size: 0.85rem;
+  color: var(--accent-light);
+  white-space: nowrap;
+}
