@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { fetchCategories } from '@/lib/api';
+import CopyButton from '@/components/CopyButton';
 
 export default function SiteFooter() {
   const [recommendedCategories, setRecommendedCategories] = useState([]);
@@ -73,8 +74,8 @@ export default function SiteFooter() {
             <h5>Contact</h5>
             <ul className="footer4-contact">
               <li><a href="https://maps.google.com/?q=Plot+No.+20A,+IDC+Hisar+Road,+Rohtak,+124001" target="_blank" rel="noreferrer">Plot No. 20A, IDC Hisar Road, Rohtak, 124001</a></li>
-              <li><a href="tel:+917494929226">+91 74949 29226</a></li>
-              <li><a href="mailto:Sales@afsind.com">Sales@afsind.com</a></li>
+              <li><a href="tel:+917494929226">+91 74949 29226</a><CopyButton value="+91 74949 29226" /></li>
+              <li><a href="mailto:Sales@afsind.com">Sales@afsind.com</a><CopyButton value="Sales@afsind.com" /></li>
             </ul>
           </div>
         </div>

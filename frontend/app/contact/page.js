@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { sendContactMessage } from '@/lib/api';
+import CopyButton from '@/components/CopyButton';
 
 export default function ContactPage() {
   const officeEmail = 'Sales@afsind.com';
@@ -15,7 +16,6 @@ export default function ContactPage() {
   });
   const [status, setStatus] = useState({ type: '', text: '' });
   const [sending, setSending] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -43,24 +43,6 @@ export default function ContactPage() {
     setForm((prev) => ({ ...prev, [key]: e.target.value }));
   };
 
-  const copyEmail = async () => {
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(officeEmail);
-      } else {
-        const temp = document.createElement('textarea');
-        temp.value = officeEmail;
-        document.body.appendChild(temp);
-        temp.select();
-        document.execCommand('copy');
-        document.body.removeChild(temp);
-      }
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
-    } catch {
-      setCopied(false);
-    }
-  };
 
   return (
     <section className="contact-page">
@@ -77,15 +59,14 @@ export default function ContactPage() {
               ✉️
               <span className="contact-action-row">
                 <a href={`mailto:${officeEmail}`}>{officeEmail}</a>
-                <button type="button" className="contact-copy-btn" onClick={copyEmail}>
-                  {copied ? 'Copied' : 'Copy'}
-                </button>
+                <CopyButton value={officeEmail} />
               </span>
             </div>
             <div className="contact-detail-item">
               📞
               <span className="contact-action-row">
                 <a href="tel:+917494929226">{officePhone}</a>
+                <CopyButton value={officePhone} />
               </span>
             </div>
           </div>

@@ -54,12 +54,12 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(9,22,64,.5); }
 .nav-logo-img { height: 40px; width: auto; }
 .nav-logo-text {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem; font-weight: 600; letter-spacing: .08em;
-  color: var(--white); line-height: 1.1;
+  font-size: 1.1rem; font-weight: 600; letter-spacing: .06em;
+  color: var(--white); line-height: 1.2;
 }
 .nav-logo-sub {
   font-size: .56rem; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--accent); display: block;
+  color: var(--accent); display: block; margin-top: 3px;
   font-family: 'DM Sans', sans-serif; font-weight: 400;
 }
 
@@ -2208,6 +2208,34 @@ svg {
   font-size: 0.85rem;
   color: var(--accent-light);
   white-space: nowrap;
+}
+
+/* ── Copy Button ─────────────────────────────────────── */
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 2px 5px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 3px;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity 0.15s, color 0.15s;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.copy-btn:hover { opacity: 1; }
+.copy-btn svg { display: block; }
+
+.copy-btn-label {
+  font-size: 0.7rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--accent);
 }
 
 /* ── Loader ──────────────────────────────────────────── */
