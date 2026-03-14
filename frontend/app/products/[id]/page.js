@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { fetchProduct } from '@/lib/api';
+import Breadcrumb from '@/components/Breadcrumb';
 import Loader from '@/components/Loader';
 import ApiError from '@/components/ApiError';
 
@@ -173,16 +174,11 @@ export default function ProductDetailPage() {
   return (
     <section className="pd-section">
 
-      {/* Breadcrumb */}
-      <nav className="pd-breadcrumb">
-        <Link href="/">Home</Link>
-        <span>/</span>
-        <Link href="/products">Products</Link>
-        <span>/</span>
-        <Link href={`/products?category=${encodeURIComponent(product.category)}`}>{product.category}</Link>
-        <span>/</span>
-        <span className="pd-breadcrumb-current">{product.name}</span>
-      </nav>
+      <Breadcrumb items={[
+        { label: 'Products', href: '/products' },
+        { label: product.category, href: `/products?category=${encodeURIComponent(product.category)}` },
+        { label: product.name },
+      ]} />
 
       {/* Main layout */}
       <div className="pd-main">
