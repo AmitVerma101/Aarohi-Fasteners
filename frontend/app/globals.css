@@ -2577,3 +2577,35 @@ svg {
   background: var(--accent);
   color: #fff;
 }
+
+/* ═══════════════════════════════
+   PRODUCT DESCRIPTION BLOCKS
+═══════════════════════════════ */
+.pd-desc-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding-left: 0.6rem;
+  margin: 1.2rem 0 0.5rem;
+  letter-spacing: 0.01em;
+}
+.pd-desc-heading:first-child { margin-top: 0; }
+
+.pd-desc-spec {
+  font-size: 0.92rem;
+  color: var(--warm-gray);
+  line-height: 1.6;
+  padding: 0.15rem 0 0.15rem 0.2rem;
+}
+.pd-desc-spec-key {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.pd-desc-para {
+  font-size: 0.92rem;
+  color: var(--warm-gray);
+  line-height: 1.7;
+  margin-bottom: 0.4rem;
+}

@@ -411,11 +411,14 @@ export default function AdminPage() {
               <div className="form-group">
                 <label>Description</label>
                 <textarea
-                  rows="4"
+                  rows="8"
                   value={productForm.description}
                   onChange={(e) => setProductForm((prev) => ({ ...prev, description: e.target.value }))}
                   placeholder="Enter product description..."
                 />
+                <p style={{ fontSize: '0.78rem', color: '#5a6a8a', marginTop: '0.35rem', lineHeight: 1.5 }}>
+                  <strong>Format tip:</strong> Short lines without a colon become section headers. Lines like <code>Drive Type: Six-lobe Torx</code> become spec rows. Everything else renders as a paragraph.
+                </p>
               </div>
 
               <div className="form-group">

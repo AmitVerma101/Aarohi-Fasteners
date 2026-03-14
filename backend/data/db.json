@@ -159,6 +159,15 @@
       "isBestChoice": false,
       "description": "Washers is a dependable washers solution designed for daily industrial use, with consistent performance and reliable fitment.",
       "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg>"
+    },
+    {
+      "id": 14,
+      "name": "Round Socket Torx Head Screws",
+      "category": "Machine Screw",
+      "imageSrc": "",
+      "isBestChoice": true,
+      "description": "Description\nAarohi Fastening Solutions offers premium Round Socket Torx Head Screws, engineered for applications that require a combination of aesthetic appeal and high-performance fastening. The Torx (Six-Lobe) drive design significantly reduces the risk of cam-out and tool slippage, allowing for higher torque application compared to standard drives.\n\nTechnical Specifications\nDrive Type: Six-Lobe / Torx drive for maximum grip and anti-tamper security.\nHead Style: Rounded button head profile for a smooth, decorative finish.\nSize Range: Standard manufacturing from M2 to M12.\nThreading: High-precision metric threads with accurate pitch control for a vibration-resistant fit.\nStandards: Manufactured in compliance with ISO 7380 and related international standards.\n\nMaterial & Quality Excellence\nStainless Steel: Available in Austenitic (A2, A4) and specialized grades for maximum corrosion resistance.\nOther Materials: Also produced in Mild Steel, Brass, Copper, and Aluminium.\nIn-House Control: Produced using raw materials from our own wire drawing facility, ensuring complete control over material strength and consistency.\nSurface Finishing: Options include Zinc Plating, Nickel Plating, Black Finish, and Passivation.\n\nKey Application Areas\nElectronics & IT: Widely used in computer hardware, servers, and consumer electronics for a modern look and security.\nAutomotive: Ideal for interior panels, dashboards, and lighting assemblies.\nSecurity Installations: Used in public areas and equipment to prevent unauthorized removal or tampering.\nConsumer Appliances: A popular choice for high-end kitchenware and premium household appliances.",
+      "homeSvg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><line x1=\"12\" y1=\"12\" x2=\"12\" y2=\"22\"/><line x1=\"9\" y1=\"15\" x2=\"15\" y2=\"15\"/><line x1=\"9\" y1=\"18\" x2=\"15\" y2=\"18\"/></svg>"
     }
   ]
 }

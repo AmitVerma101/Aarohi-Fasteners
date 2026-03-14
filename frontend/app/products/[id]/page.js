@@ -122,6 +122,24 @@ function ImageZoom({ src, alt }) {
   );
 }
 
+/* ─── Description Parser ─────────────────────────── */
+function parseDescription(text) {
+  const blocks = [];
+  for (const raw of text.split('\n')) {
+    const line = raw.trim();
+    if (!line) continue;
+    const colonIdx = line.indexOf(':');
+    if (colonIdx > 0 && colonIdx <= 40 && line[colonIdx + 1] === ' ') {
+      blocks.push({ type: 'spec', key: line.slice(0, colonIdx), value: line.slice(colonIdx + 2) });
+    } else if (colonIdx === -1 && line.length <= 50) {
+      blocks.push({ type: 'heading', text: line });
+    } else {
+      blocks.push({ type: 'paragraph', text: line });
+    }
+  }
+  return blocks;
+}
+
 /* ─── Page ───────────────────────────────────────── */
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -150,7 +168,7 @@ export default function ProductDetailPage() {
 
   const waText = encodeURIComponent(`Hi, I'd like to enquire about *${product.name}* (${product.category}). Could you please share more details?`);
 
-  const descParagraphs = (product.description || '').split('\n').filter(Boolean);
+  const descBlocks = parseDescription(product.description || '');
 
   return (
     <section className="pd-section">
@@ -188,9 +206,15 @@ export default function ProductDetailPage() {
           <div className="pd-divider" />
 
           <div className="pd-description">
-            {descParagraphs.map((para, i) => (
-              <p key={i}>{para}</p>
-            ))}
+            {descBlocks.map((block, i) => {
+              if (block.type === 'heading') return <h3 key={i} className="pd-desc-heading">{block.text}</h3>;
+              if (block.type === 'spec') return (
+                <div key={i} className="pd-desc-spec">
+                  <span className="pd-desc-spec-key">{block.key}:</span> {block.value}
+                </div>
+              );
+              return <p key={i} className="pd-desc-para">{block.text}</p>;
+            })}
           </div>
 
           <div className="pd-divider" />
