@@ -79,7 +79,7 @@ export default function SiteHeader() {
               />
             ) : null}
             <span className="nav-logo-text">
-              HBS Fasteners
+              Aarohi Fastening Solutions
               <span className="nav-logo-sub">Precision Fastening Solutions</span>
             </span>
           </Link>

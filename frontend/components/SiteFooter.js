@@ -29,7 +29,7 @@ export default function SiteFooter() {
         <div className="footer4-grid">
           <div className="footer4-col">
             <Link href="/" className="footer-shared-logo">
-              HBS Fasteners
+              Aarohi Fastening Solutions
             </Link>
             <p className="footer4-tagline">Precision Fastening Solutions Built on Legacy, Quality &amp; Trust</p>
             <div className="footer4-socials">
@@ -72,14 +72,14 @@ export default function SiteFooter() {
           <div className="footer4-col">
             <h5>Contact</h5>
             <ul className="footer4-contact">
-              <li>HBS Fasteners, Jamnagar, Gujarat, India</li>
+              <li>Aarohi Fastening Solutions, Jamnagar, Gujarat, India</li>
               <li><a href="tel:+917494929226">+91 74949 29226</a></li>
               <li><a href="mailto:Sales@afsind.com">Sales@afsind.com</a></li>
             </ul>
           </div>
         </div>
         <div className="footer4-bottom">
-          <p>© {new Date().getFullYear()} HBS Fasteners. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Aarohi Fastening Solutions. All rights reserved.</p>
         </div>
       </div>
     </footer>

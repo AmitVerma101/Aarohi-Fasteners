@@ -145,7 +145,7 @@ export default function HomePage() {
             Quality &amp; Trust
           </h1>
           <p className="hero-subtitle">
-            Welcome to HBS Fasteners - your trusted partner for industrial-grade bolts, screws, nuts and precision fastening components. Serving engineers, manufacturers and tradespeople for over two decades.
+            Welcome to Aarohi Fastening Solutions - your trusted partner for industrial-grade bolts, screws, nuts and precision fastening components. Serving engineers, manufacturers and tradespeople for over two decades.
           </p>
           <div className="hero-actions">
             <Link href="/catalogue" className="btn-primary">Browse Catalogue</Link>
@@ -155,7 +155,7 @@ export default function HomePage() {
         <div className="hero-image-side">
           <Image
             src="/images/home-page/front-image.webp"
-            alt="HBS Fasteners products"
+            alt="Aarohi Fastening Solutions products"
             width={1200}
             height={900}
             style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
@@ -168,7 +168,7 @@ export default function HomePage() {
         <div className="about-strip-media fade-in">
           <Image
             src="/images/vision_mission.webp"
-            alt="HBS Fasteners products"
+            alt="Aarohi Fastening Solutions products"
             width={600}
             height={600}
             className="about-strip-image"
@@ -234,8 +234,8 @@ Quality is the foundation of everything we do. From in-house wire drawing to the
 
       <section id="why">
         <div className="section-header fade-in">
-          <h2 className="section-title">Why Choose HBS Fasteners</h2>
-          <p className="section-subtitle-full-width">At HBS Fasteners, we combine decades of manufacturing experience with advanced technology to deliver fastening solutions that industries can rely on. Here&apos;s why customers across India and overseas choose us as their trusted manufacturing partner:</p>
+          <h2 className="section-title">Why Choose Aarohi Fastening Solutions</h2>
+          <p className="section-subtitle-full-width">At Aarohi Fastening Solutions, we combine decades of manufacturing experience with advanced technology to deliver fastening solutions that industries can rely on. Here&apos;s why customers across India and overseas choose us as their trusted manufacturing partner:</p>
         </div>
         <div className="why-cards">
           {WHY_CHOOSE_POINTS.map((point) => (

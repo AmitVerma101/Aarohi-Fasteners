@@ -2,7 +2,7 @@ import './globals.css';
 import AppShell from '@/components/AppShell';
 
 export const metadata = {
-  title: 'HBS Fasteners — Precision Fastening Solutions',
+  title: 'Aarohi Fastening Solutions — Precision Fastening Solutions',
   description: 'Industrial-grade bolts, screws, nuts and precision fastening components.',
 };
 

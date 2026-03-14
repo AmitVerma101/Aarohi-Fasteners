@@ -9,7 +9,7 @@ export default function AboutPage() {
             <p className="section-tag">About Us</p>
             <h1 className="about-main-title">Built for Precision. Trusted for Performance.</h1>
             <p className="about-main-copy">
-              HBS Fasteners is a manufacturing-driven company focused on delivering precision-engineered fasteners and
+              Aarohi Fastening Solutions is a manufacturing-driven company focused on delivering precision-engineered fasteners and
               components for demanding industrial applications. With decades of experience, strong process control, and
               a quality-first mindset, we support customers with reliable products and dependable execution.
             </p>
