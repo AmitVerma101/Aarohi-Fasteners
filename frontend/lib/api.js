@@ -3,7 +3,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.afsind
 function resolveImageSrc(src) {
   if (!src || typeof src !== 'string') return '';
   if (src.startsWith('http://') || src.startsWith('https://')) return src;
-  if (src.startsWith('/assets/')) return `${API_BASE_URL}${src}`;
+  if (src.startsWith('/assets/') || src.startsWith('/uploads/')) return `${API_BASE_URL}${src}`;
   return src;
 }
 
