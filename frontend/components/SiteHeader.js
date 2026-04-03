@@ -8,10 +8,8 @@ import CopyButton from '@/components/CopyButton';
 
 const navItems = [
   { href: '/products', label: 'Products' },
-  { href: '/catalogue', label: 'Catalogue' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
- 
 ];
 
 export default function SiteHeader() {

@@ -148,7 +148,7 @@ export default function HomePage() {
             Welcome to Aarohi Fastening Solutions - your trusted partner for industrial-grade bolts, screws, nuts and precision fastening components. Serving engineers, manufacturers and tradespeople for over two decades.
           </p>
           <div className="hero-actions">
-            <Link href="/catalogue" className="btn-primary">Browse Catalogue</Link>
+            <Link href="/products" className="btn-primary">Browse Products</Link>
             <Link href="/contact" className="btn-ghost">Request a Quote →</Link>
           </div>
         </div>

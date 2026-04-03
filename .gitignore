@@ -35,3 +35,6 @@ tmp/
 
 # Live database — never commit, seeded from db.seed.json on first run
 backend/data/db.json
+
+# Admin-uploaded product images — persisted via Docker volume, not git
+backend/data/uploads/

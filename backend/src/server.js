@@ -48,6 +48,7 @@ const DB_SEED_PATH = path.join(__dirname, '..', 'data', 'db.seed.json');
 const BACKEND_ROOT = path.join(__dirname, '..');
 const ASSETS_ROOT = path.join(BACKEND_ROOT, 'assets');
 const PRODUCT_ASSETS_ROOT = path.join(ASSETS_ROOT, 'products');
+const UPLOADS_ROOT = path.join(BACKEND_ROOT, 'data', 'uploads');
 
 const DEFAULT_CATEGORIES = [
   'Bolts',
@@ -267,7 +268,7 @@ async function saveProductImage({ categoryName, imageData, imageName }) {
 
   const categorySlug = slugify(categoryName);
   const base = sanitizeFileName(imageName || `${Date.now()}`);
-  const dir = path.join(PRODUCT_ASSETS_ROOT, categorySlug);
+  const dir = path.join(UPLOADS_ROOT, categorySlug);
   await fs.mkdir(dir, { recursive: true });
 
   let fileName = `${base}${parsed.ext}`;
@@ -278,8 +279,7 @@ async function saveProductImage({ categoryName, imageData, imageName }) {
   }
 
   await fs.writeFile(fullPath, parsed.buffer);
-  const rel = path.relative(BACKEND_ROOT, fullPath).split(path.sep).join('/');
-  return `/${rel}`;
+  return `/uploads/${categorySlug}/${fileName}`;
 }
 
 function normalizeCategoryName(name) {
@@ -419,6 +419,21 @@ const server = http.createServer(async (req, res) => {
 
   if (req.method === 'GET' && url.pathname.startsWith('/assets/')) {
     return serveAsset(req, res, url.pathname);
+  }
+
+  if (req.method === 'GET' && url.pathname.startsWith('/uploads/')) {
+    const relativePath = decodeURIComponent(url.pathname.replace(/^\/uploads\/?/, ''));
+    const fullPath = path.resolve(UPLOADS_ROOT, relativePath);
+    const rootResolved = path.resolve(UPLOADS_ROOT);
+    if (!(fullPath === rootResolved || fullPath.startsWith(`${rootResolved}${path.sep}`))) {
+      return sendJson(res, 403, { error: 'Forbidden.' });
+    }
+    try {
+      const data = await fs.readFile(fullPath);
+      return sendFile(res, 200, getMimeType(fullPath), data);
+    } catch {
+      return sendJson(res, 404, { error: 'Upload not found.' });
+    }
   }
 
   if (req.method === 'GET' && url.pathname === '/api/health') {
