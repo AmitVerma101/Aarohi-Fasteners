@@ -146,7 +146,7 @@ export default function ProductsPage() {
                 <h3>{product.name}</h3>
                 <p>{product.category}</p>
               </div>
-              <div className="products-line-desc">{product.description}</div>
+              {product.description ? <div className="products-line-desc">{product.description.split('\n\n')[0]}</div> : null}
             </Link>
           ))}
         </div>
