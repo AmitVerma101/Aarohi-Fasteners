@@ -1,8 +1,7 @@
 import PdfViewerWrapper from '@/components/PdfViewerWrapper';
 import Breadcrumb from '@/components/Breadcrumb';
 
-const PDF_URL =
-  `${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.afsind.com'}/assets/catalogue/HBS%20Fastner%20new%20design%20Final_compressed.pdf`;
+const PDF_URL = '/assets/catalogue/HBS%20Fastner%20new%20design%20Final_compressed.pdf';
 
 export const metadata = {
   title: 'Catalogue — Aarohi Fasteners',

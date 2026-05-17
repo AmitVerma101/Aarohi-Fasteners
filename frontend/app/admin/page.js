@@ -348,7 +348,7 @@ export default function AdminPage() {
             type="password"
             value={adminToken}
             onChange={(e) => setAdminToken(e.target.value)}
-            placeholder="Set ADMIN_TOKEN in backend, then paste it here"
+            placeholder="Paste the ADMIN_TOKEN from your .env file"
           />
         </div>
 

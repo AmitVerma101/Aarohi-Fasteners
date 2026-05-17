@@ -1,14 +1,5 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.afsind.com';
-
-function resolveImageSrc(src) {
-  if (!src || typeof src !== 'string') return '';
-  if (src.startsWith('http://') || src.startsWith('https://')) return src;
-  if (src.startsWith('/assets/') || src.startsWith('/uploads/')) return `${API_BASE_URL}${src}`;
-  return src;
-}
-
 async function request(path, options = {}) {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(path, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -32,10 +23,7 @@ export async function fetchProducts(params = {}) {
   if (params.category) query.set('category', params.category);
   const suffix = query.toString() ? `?${query.toString()}` : '';
   const data = await request(`/api/products${suffix}`);
-  return (data.products || []).map((product) => ({
-    ...product,
-    imageSrc: resolveImageSrc(product.imageSrc),
-  }));
+  return data.products || [];
 }
 
 export async function fetchProduct(id) {
@@ -47,20 +35,18 @@ export async function fetchProduct(id) {
 
 export async function fetchCategories() {
   const data = await request('/api/categories');
-  return (data.categories || []).map((category) => {
-    if (typeof category === 'string') {
+  return (data.categories || [])
+    .map((category) => {
+      if (typeof category === 'string') {
+        return { name: category, isRecommended: false, homeSvg: '' };
+      }
       return {
-        name: category,
-        isRecommended: false,
-        homeSvg: '',
+        name: typeof category?.name === 'string' ? category.name : '',
+        isRecommended: Boolean(category?.isRecommended),
+        homeSvg: typeof category?.homeSvg === 'string' ? category.homeSvg : '',
       };
-    }
-    return {
-      name: typeof category?.name === 'string' ? category.name : '',
-      isRecommended: Boolean(category?.isRecommended),
-      homeSvg: typeof category?.homeSvg === 'string' ? category.homeSvg : '',
-    };
-  }).filter((category) => category.name);
+    })
+    .filter((category) => category.name);
 }
 
 export async function createCategory(category, adminToken) {
