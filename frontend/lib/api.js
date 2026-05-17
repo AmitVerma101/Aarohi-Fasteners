@@ -1,18 +1,12 @@
 async function request(path, options = {}) {
   const response = await fetch(path, {
     ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(options.headers || {}),
-    },
+    headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
     cache: 'no-store',
   });
 
   const data = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    throw new Error(data.error || 'Request failed');
-  }
-
+  if (!response.ok) throw new Error(data.error || 'Request failed');
   return data;
 }
 
@@ -37,9 +31,7 @@ export async function fetchCategories() {
   const data = await request('/api/categories');
   return (data.categories || [])
     .map((category) => {
-      if (typeof category === 'string') {
-        return { name: category, isRecommended: false, homeSvg: '' };
-      }
+      if (typeof category === 'string') return { name: category, isRecommended: false, homeSvg: '' };
       return {
         name: typeof category?.name === 'string' ? category.name : '',
         isRecommended: Boolean(category?.isRecommended),
@@ -49,55 +41,6 @@ export async function fetchCategories() {
     .filter((category) => category.name);
 }
 
-export async function createCategory(category, adminToken) {
-  return request('/api/categories', {
-    method: 'POST',
-    headers: { 'x-admin-token': adminToken },
-    body: JSON.stringify(category),
-  });
-}
-
-export async function updateCategory(id, category, adminToken) {
-  return request(`/api/categories/${id}`, {
-    method: 'PUT',
-    headers: { 'x-admin-token': adminToken },
-    body: JSON.stringify(category),
-  });
-}
-
-export async function deleteCategory(id, adminToken) {
-  return request(`/api/categories/${id}`, {
-    method: 'DELETE',
-    headers: { 'x-admin-token': adminToken },
-  });
-}
-
-export async function createProduct(product, adminToken) {
-  return request('/api/products', {
-    method: 'POST',
-    headers: { 'x-admin-token': adminToken },
-    body: JSON.stringify(product),
-  });
-}
-
-export async function updateProduct(id, product, adminToken) {
-  return request(`/api/products/${id}`, {
-    method: 'PUT',
-    headers: { 'x-admin-token': adminToken },
-    body: JSON.stringify(product),
-  });
-}
-
-export async function deleteProduct(id, adminToken) {
-  return request(`/api/products/${id}`, {
-    method: 'DELETE',
-    headers: { 'x-admin-token': adminToken },
-  });
-}
-
 export async function sendContactMessage(payload) {
-  return request('/api/contact', {
-    method: 'POST',
-    body: JSON.stringify(payload),
-  });
+  return request('/api/contact', { method: 'POST', body: JSON.stringify(payload) });
 }
